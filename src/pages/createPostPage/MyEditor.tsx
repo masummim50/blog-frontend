@@ -1,4 +1,4 @@
-import {  useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import parse from "html-react-parser";
 
 import "react-quill/dist/quill.snow.css";
@@ -6,8 +6,15 @@ import Quill from "./Quill";
 import UploadImage from "./UploadImage";
 import Tags from "./Tags";
 import { posts } from "./PostData";
+import { axiosInstance } from "../../axios/axiosInstance";
+import { useMutation } from "@tanstack/react-query";
 
-
+interface PostDataType {
+  title: string;
+  content: string;
+  tags: string[];
+  image: string;
+}
 
 const MyEditor = () => {
   const [title, setTitle] = useState("");
@@ -25,25 +32,39 @@ const MyEditor = () => {
 
   const titleRef = useRef<HTMLInputElement>(null);
 
-
   const generateRandomPost = () => {
-   const post = posts[Math.floor(Math.random() * posts.length)];
+    const post = posts[Math.floor(Math.random() * posts.length)];
     setTitle(post.title);
     setImage(post.images[Math.floor(Math.random() * post.images.length)]);
     setValue(post.value);
     setTags(post.tags);
   };
 
+  // Define the mutation outside handleCreatePost
+  const mutation = useMutation({
+    mutationFn: async (postData: PostDataType) => {
+      return axiosInstance.post("/post/create", postData);
+    },
+    onSuccess: (data) => {
+      console.log("Post created successfully:", data);
+      // Handle successful post creation (e.g., redirect or show success message)
+    },
+    onError: (error) => {
+      console.error("Error creating post:", error);
+      // Handle error (e.g., show error message)
+    },
+  });
+
   const handleCreatePost = () => {
     const postData = {
       title,
-      content:value,
-      tags:tags,
-      image: image
-    }
+      content: value,
+      tags: tags,
+      image: image,
+    };
 
-    console.log(postData)
-    // use react query mutation to send a request to create a post
+    console.log(postData);
+    mutation.mutate(postData);
   };
 
   return (
@@ -75,13 +96,13 @@ const MyEditor = () => {
 
         <div className="flex justify-end ">
           <button
-            disabled={!formFilled}
+            disabled={!formFilled || mutation.isPending}
             onClick={handleCreatePost}
             className={`bg-green-600 text-white font-semibold hover:bg-green-700 px-7 py-1 rounded-md ${
               !formFilled ? "cursor-not-allowed opacity-70" : "cursor-pointer"
             } `}
           >
-            Publish
+            {mutation.isPending ? 'Publishing...' : 'Publish'}
           </button>
         </div>
       </div>

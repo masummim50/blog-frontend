@@ -13,6 +13,13 @@ export const axiosInstance = axios.create({
   },
 });
 
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("blog-token");
+
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 export type axiosResponseType<T> = {
   statusCode: number;
   success: boolean;
