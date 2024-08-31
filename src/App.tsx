@@ -19,7 +19,7 @@ function App() {
   return (
     <themeContext.Provider value={{ darkTheme, setDarkTheme }}>
       <div className={`${darkTheme ? "dark" : ""}`}>
-        <div className="dark:bg-slate-950 bg-white">
+        <div className="dark:bg-orange-950 bg-white">
           <AppRouter />
         </div>
       </div>

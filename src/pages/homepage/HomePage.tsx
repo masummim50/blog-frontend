@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { axiosInstance } from "../../axios/axiosInstance";
-import { QueryFunction, useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  QueryFunction,
+  useInfiniteQuery,
+  useQuery,
+} from "@tanstack/react-query";
 import BlogCard from "../../components/BlogCard/BlogCard";
 import { BlogCardPropsType } from "../../types/BlogPostTypes";
 import Masonry from "react-masonry-css";
@@ -21,7 +25,7 @@ const breakpointColumnsObj = {
   500: 1,
 };
 
-const fetchPosts = async ({pageParam}:{pageParam:number}) => {
+const fetchPosts = async ({ pageParam }: { pageParam: number }) => {
   console.log("fetch post props: ", pageParam);
   const response = await axiosInstance.get(
     `/post?page=${pageParam ? pageParam : 1}`
@@ -30,35 +34,37 @@ const fetchPosts = async ({pageParam}:{pageParam:number}) => {
   return response.data;
 };
 const HomePage = () => {
-  // const { data, isLoading, isSuccess, isError, error } = useQuery<BlogCardPropsType[]>({
-  //   queryKey: ["posts"],
-  //   queryFn: fetchPosts,
-  // });
+  
 
-  const [isLastPage, setIsLastPage] = React.useState(false);
 
-  console.log("is last page: ", isLastPage)
+  const {
+    data,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["posts"],
+    queryFn: fetchPosts,
+    initialPageParam: 1,
+    getNextPageParam: (data) => {
+      return data.meta.page + 1;
+    },
+  });
 
-  const { data, isLoading, isSuccess, isError, error, fetchNextPage , isFetchingNextPage} =
-    useInfiniteQuery({
-      queryKey: ["posts"],
-      queryFn: fetchPosts,
-      initialPageParam: 1,
-      getNextPageParam: (data) => {
-        
-        return data.meta.page+1;
-      },
-    });
+  const { ref, inView } = useInView();
 
-    const {ref, inView} = useInView()
-
-    useEffect(()=>{
-      // console.log("data: ", data?.pages.at(-1))
-      if(inView && data?.pages.at(-1).meta.page < data?.pages.at(-1).meta.totalPage){
-        fetchNextPage()
-      }
-    },[inView, fetchNextPage, data])
-
+  useEffect(() => {
+    // console.log("data: ", data?.pages.at(-1))
+    if (
+      inView &&
+      data?.pages.at(-1).meta.page < data?.pages.at(-1).meta.totalPage
+    ) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage, data]);
 
   return (
     <div>
@@ -72,23 +78,17 @@ const HomePage = () => {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >
-          {/* {data?.pages.map((d: BlogCardPropsType) => (
-            <BlogCard key={d._id} post={d} />
-          ))} */}
-          {
-            data?.pages.map(page=> page.data.map((d: BlogCardPropsType) => (
+          {data?.pages.map((page) =>
+            page.data.map((d: BlogCardPropsType) => (
               <BlogCard key={d._id} post={d} />
-            )))
-          }
+            ))
+          )}
         </Masonry>
       </div>
       <div className="w-full h-[1px]" ref={ref}></div>
-      {
-        isFetchingNextPage && <div>Loading...</div>
-      }
-      {
-        data?.pages.at(-1).meta.page === data?.pages.at(-1).meta.totalPage && <div>No more data</div>
-      }
+      {isFetchingNextPage && <div>Loading...</div>}
+      {data?.pages.at(-1).meta.page === data?.pages.at(-1).meta.totalPage &&
+        !isLoading && <div>No more data</div>}
     </div>
   );
 };

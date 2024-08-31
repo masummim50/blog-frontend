@@ -12,7 +12,7 @@ const Header = () => {
   const id = useAuthStore((state) => state.auth.id);
   const { darkTheme, setDarkTheme } = useContext(themeContext);
   return (
-    <div className="l d w-full fixed top-0">
+    <div className="l d  w-full fixed top-0">
       <div className="m-auto max-w-[95vw] flex justify-between items-center">
         <div className="flex items-center">
           <Link to={"/"} className="hidden md:block">

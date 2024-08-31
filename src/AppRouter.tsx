@@ -8,6 +8,7 @@ import UserPage from "./pages/userPage/UserPage";
 import CreatePostPage from "./pages/createPostPage/CreatePostPage";
 import GameHomePage from "./game/GameHomePage";
 import PrivateRoute from "./components/privateRouteWrapper/PrivateRoute";
+import PostDetailsPage from "./pages/postDetailsPage/PostDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             <CreatePostPage />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/post/:id",
+        element: <PostDetailsPage />, // Add your PostPage component here
       },
     ],
   },
