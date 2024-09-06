@@ -15,13 +15,14 @@ const ProfileIcon = () => {
         <FaPenFancy className="p-1 hover:bg-black rounded-full" size={32} />
       </Link>
       <div
-        className="flex items-center h-full w-full justify-center "
+        className=" flex items-center h-full w-full justify-center "
         id="profile-btn"
         onClick={() => {
           setShowProfileDropdown(!showProfileDropdown);
         }}
       >
-        <IoPersonCircle id="profile-btn" size={35} />
+        {/* <IoPersonCircle id="profile-btn" size={35} /> */}
+        <div id="profile-btn" className="size-[40px] text-xl rounded-full bg-black text-white flex justify-center items-center">{userName?.slice(0, 1)}</div>
         <p id="profile-btn" className=" underline ">
           {userName}
         </p>

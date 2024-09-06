@@ -1,11 +1,11 @@
-import React from 'react';
+import useAuthStore from "../../zustand/authStore";
+
+import BlogPostsContainer from "../../components/BlogPostsContainer/BlogPostsContainer";
 
 const UserHomePage = () => {
-    return (
-        <div>
-            this is user hOme page
-        </div>
-    );
+  const userid = useAuthStore((state) => state.auth.id);
+
+  return <BlogPostsContainer apiEndPoint={`post/${userid}/posts`} queryKey="user-posts" />;
 };
 
 export default UserHomePage;

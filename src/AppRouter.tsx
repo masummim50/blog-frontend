@@ -9,6 +9,7 @@ import CreatePostPage from "./pages/createPostPage/CreatePostPage";
 import GameHomePage from "./game/GameHomePage";
 import PrivateRoute from "./components/privateRouteWrapper/PrivateRoute";
 import PostDetailsPage from "./pages/postDetailsPage/PostDetailsPage";
+import UserHomePage from "./pages/UserHomePage/UserHomePage";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/:username/blog",
-        element: <UserPage />,
+        element: <UserHomePage />,
       },
       {
         path: "/:username/write",
