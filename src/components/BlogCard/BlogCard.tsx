@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import { BlogCardPropsType } from "../../types/BlogPostTypes";
 import { blogPostedTime } from "../../utils/blogPostFunctions";
 import { AiFillLike } from "react-icons/ai";
@@ -20,7 +20,7 @@ const BlogCard = ({
   // console.log("page index: ", pageIndex)
   const userId = useAuthStore((state) => state.auth.id);
   const likeMutation = useMutation({
-    mutationFn: async (param:string) => {
+    mutationFn: async (param: string) => {
       const response = await axiosInstance.patch(`/post/${param}/${post._id}`);
       return response.data;
     },
@@ -51,7 +51,10 @@ const BlogCard = ({
     },
   });
 
-  const handleLike = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, param:string) => {
+  const handleLike = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    param: string
+  ) => {
     e.stopPropagation();
     e.preventDefault();
     likeMutation.mutate(param);
@@ -59,6 +62,7 @@ const BlogCard = ({
 
   return (
     <Link
+    
       to={`/post/${post._id}`}
       className="bg-gray-200 dark:bg-gray-700/40 hover:bg-gray-300 hover:dark:bg-gray-700 py-3 block text-black dark:text-white mb-3"
     >
@@ -101,7 +105,14 @@ const BlogCard = ({
         <div className="flex">
           <div className="flex items-center">
             <span className="ml-2">{post.likes.length}</span>
-            <div onClick={(e)=> handleLike(e, post.likes.includes(userId || "") ? "unlike" : "like")}>
+            <div
+              onClick={(e) =>
+                handleLike(
+                  e,
+                  post.likes.includes(userId || "") ? "unlike" : "like"
+                )
+              }
+            >
               {likeMutation.isPending ? (
                 <div className="size-5 border border-t-transparent border-sky-400  rounded-full animate-spin"></div>
               ) : (

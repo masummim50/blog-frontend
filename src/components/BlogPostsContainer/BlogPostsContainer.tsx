@@ -4,19 +4,21 @@ import { BlogCardPropsType } from "../../types/BlogPostTypes";
 import BlogCard from "../../components/BlogCard/BlogCard";
 
 const breakpointColumnsObj = {
-default: 4,
+  default: 4,
   1024: 3,
   768: 2,
   640: 1,
 };
 
-const BlogPostsContainer = ({ apiEndPoint , queryKey}: { apiEndPoint: string , queryKey:string}) => {
+const BlogPostsContainer = ({
+  apiEndPoint,
+  queryKey,
+}: {
+  apiEndPoint: string;
+  queryKey: string;
+}) => {
   const { data, isLoading, isError, error, isFetchingNextPage, ref } =
     useInfiniteFetchPosts(apiEndPoint, {}, queryKey);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   if (isError && error) {
     return <div>Error: {error.message}</div>;
@@ -24,7 +26,12 @@ const BlogPostsContainer = ({ apiEndPoint , queryKey}: { apiEndPoint: string , q
 
   return (
     <div>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && (
+        <div className="flex justify-center items-center min-h-[200px]">
+          Loading...{" "}
+          <span className="size-8 rounded-full border-4 border-t-transparent border-white animate-spin"></span>
+        </div>
+      )}
 
       <div className="">
         <Masonry
@@ -34,7 +41,7 @@ const BlogPostsContainer = ({ apiEndPoint , queryKey}: { apiEndPoint: string , q
         >
           {data?.pages.map((page, pageIndex) =>
             page.data.map((d: BlogCardPropsType) => (
-              <BlogCard key={d._id} post={d} pageIndex={pageIndex}/>
+              <BlogCard key={d._id} post={d} pageIndex={pageIndex} />
             ))
           )}
         </Masonry>
@@ -49,9 +56,11 @@ const BlogPostsContainer = ({ apiEndPoint , queryKey}: { apiEndPoint: string , q
         </div>
       )}
       {data?.pages.at(-1).meta.page === data?.pages.at(-1).meta.totalPage &&
-        !isLoading && <div className="min-h-[100px] text-center py-4 mb-10text-white">
-        No More Data
-      </div>}
+        !isLoading && (
+          <div className="min-h-[100px] text-center py-4 mb-10text-white">
+            No More Data
+          </div>
+        )}
     </div>
   );
 };

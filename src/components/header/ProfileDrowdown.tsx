@@ -13,11 +13,9 @@ const ProfileDrowdown = ({
     const container = document.getElementById(
       "profile-dropdown"
     ) as HTMLElement;
- console.log("e target: ", e.target)
+    //  console.log("e target: ", e.target)
     if (e.target && (e.target as HTMLElement).id !== "profile-btn") {
-      if (
-        !container?.contains(e.target as HTMLElement)
-      ) {
+      if (!container?.contains(e.target as HTMLElement)) {
         // console.log(e.target)
         // console.log("clicked outside");
         setShowProfileDropdown(false);
@@ -32,13 +30,13 @@ const ProfileDrowdown = ({
   const links = [
     {
       title: "My Blog",
-      url: `${userName}/blog`
+      url: `${userName}/blog`,
     },
     {
       title: "All posts",
-      url: `${userName}/allposts`
-    }
-  ]
+      url: `${userName}/allposts`,
+    },
+  ];
 
   return (
     <div
@@ -47,18 +45,13 @@ const ProfileDrowdown = ({
         showProfileDropdown ? "right-0" : "right-[-100%]"
       }`}
     >
-      
       <div className="h-[200px]">Profile section</div>
       <div>
-        {
-          links.map((link) => (
-            <div key={link.title}>
-              <Link to={link.url}>
-                {link.title}
-              </Link>
-            </div>
-          ))
-        }
+        {links.map((link) => (
+          <div key={link.title}>
+            <Link to={link.url}>{link.title}</Link>
+          </div>
+        ))}
       </div>
     </div>
   );

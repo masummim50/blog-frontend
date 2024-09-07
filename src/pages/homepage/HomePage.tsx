@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import BlogPostsContainer from "../../components/BlogPostsContainer/BlogPostsContainer";
 
 // interface Post {
@@ -52,8 +53,14 @@ const HomePage = () => {
   //   }
   // }, [inView, fetchNextPage, data]);
 
+  useEffect(() => { 
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <BlogPostsContainer apiEndPoint="/post" queryKey="posts" />
+    <div className="min-h-[100vh]">
+      <BlogPostsContainer apiEndPoint="/post" queryKey="posts" />
+    </div>
 
     // <div>
     //   {/* {JSON.stringify(data?.data)} */}

@@ -22,3 +22,11 @@ export function blogPostedTime(dateString: string): string {
 
   return "just now";
 }
+
+export function calculateReadingTime(text: string): string {
+  const wordsPerMinute = 200;
+  const words = text.trim().split(/\s+/).length; // Count words by splitting the string by spaces
+  const readingTime = Math.ceil(words / wordsPerMinute); // Round up the reading time to the nearest minute
+
+  return `${readingTime} min read`;
+}
