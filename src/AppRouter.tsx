@@ -8,6 +8,7 @@ import GameHomePage from "./game/GameHomePage";
 import PrivateRoute from "./components/privateRouteWrapper/PrivateRoute";
 import UserHomePage from "./pages/UserHomePage/UserHomePage";
 import PostDetailsPage from "./pages/postDetailsPage/PostDetailsPage";
+import UserProfilePage from "./pages/userProfilePage/UserProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/:username/blog",
         element: <UserHomePage />,
+      },
+      {
+        path: "/:username/profile",
+        element: <UserProfilePage />,
       },
       {
         path: "/:username/write",

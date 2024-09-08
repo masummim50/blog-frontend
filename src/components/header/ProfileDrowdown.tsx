@@ -9,6 +9,7 @@ const ProfileDrowdown = ({
   showProfileDropdown: boolean;
   setShowProfileDropdown: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const removeUser = useAuthStore((state) => state.removeUser);
   const handleClickOutside = (e: MouseEvent) => {
     const container = document.getElementById(
       "profile-dropdown"
@@ -29,14 +30,19 @@ const ProfileDrowdown = ({
 
   const links = [
     {
+      title: "My Profile",
+      url: `${userName}/profile`,
+    },
+    {
       title: "My Blog",
       url: `${userName}/blog`,
     },
-    {
-      title: "All posts",
-      url: `${userName}/allposts`,
-    },
   ];
+
+  const handleLogout = ()=> {
+    localStorage.removeItem("blog-token");
+    removeUser();
+  }
 
   return (
     <div
@@ -45,13 +51,14 @@ const ProfileDrowdown = ({
         showProfileDropdown ? "right-0" : "right-[-100%]"
       }`}
     >
-      <div className="h-[200px]">Profile section</div>
+      <div className="h-[100px]">Profile section</div>
       <div>
         {links.map((link) => (
           <div key={link.title}>
-            <Link to={link.url}>{link.title}</Link>
+            <Link className="py-2 pr-20 pl-3 inline-block border-b hover:bg-black/60" to={link.url}>{link.title}</Link>
           </div>
         ))}
+        <button onClick={handleLogout}>Logout</button>
       </div>
     </div>
   );

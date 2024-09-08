@@ -14,7 +14,7 @@ const Links = () => {
 
       <div className="block md:hidden">
         <IoMdMenu
-          className="cursor-pointer text-[40px] hover:bg-slate-900 text-white"
+          className="cursor-pointer text-[40px] hover:bg-gray-200 dark:hover:bg-slate-900 text-black dark:text-white"
           id="links-btn"
           onClick={() => setShowLinksDropdown(!showLinksDropdown)}
         />

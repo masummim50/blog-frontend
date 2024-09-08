@@ -85,7 +85,7 @@ const PostDetailsPage = () => {
       {isLoading && (
         <div className="flex justify-center items-center min-h-[200px]">
           Loading...{" "}
-          <span className="size-8 rounded-full border-4 border-t-transparent border-white animate-spin"></span>
+          <span className="size-8 rounded-full border-4 border-t-transparent dark:border-t-transparent border-black dark:border-white animate-spin"></span>
         </div>
       )}
 

@@ -66,7 +66,6 @@ const BlogCard = ({
       to={`/post/${post._id}`}
       className="bg-gray-200 dark:bg-gray-700/40 hover:bg-gray-300 hover:dark:bg-gray-700 py-3 block text-black dark:text-white mb-3"
     >
-      <h2 className="text-xl">{pageIndex}</h2>
       <div className="flex flex-row sm:flex-col justify-between ">
         <div className="px-2 w-[70%] sm:w-[100%]">
           <div className="flex justify-start sm:justify-between sm:items-center ">
@@ -120,12 +119,12 @@ const BlogCard = ({
                   className={`${
                     post.likes.includes(userId || "")
                       ? "fill-sky-500"
-                      : "fill-gray-200"
+                      : "fill-black dark:fill-gray-200"
                   }`}
                 />
               )}
             </div>
-            <div className="size-1 bg-white rounded-full ml-2"></div>
+            <div className="size-1 bg-gray-900 dark:bg-white rounded-full ml-2"></div>
             <span className="ml-2">{post.comments.length}</span>
             <MdModeComment className="mt-[4px]" />
           </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import AppRouter from "./AppRouter";
 import { themeContext } from "./context/themeContext";
@@ -10,10 +10,21 @@ function App() {
   const [darkTheme, setDarkTheme] = useState<boolean>(true);
   // as soon as it renders, get the token from local storage and set it in the header
   const token = localStorage.getItem("blog-token");
-  if(token){
-    const decoded = jwtDecode(token) as {id:string, name:string, email:string};
+  if (token) {
+    const decoded = jwtDecode(token) as {
+      _id: string;
+      name: string;
+      email: string;
+      image: string;
+    };
     console.log(decoded);
-    const payload = {token, id:decoded._id, userName:decoded.name, email:decoded.email}
+    const payload = {
+      token,
+      id: decoded._id,
+      userName: decoded.name,
+      email: decoded.email,
+      image: decoded.image,
+    };
     setUser(payload);
   }
   return (
