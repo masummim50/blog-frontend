@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { ChangeEvent, ChangeEventHandler, useEffect } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import React, { ChangeEvent, useEffect } from "react";
 import { axiosInstance } from "../../axios/axiosInstance";
 import useAuthStore from "../../zustand/authStore";
-import { uploadImage } from "../createPostPage/UploadImage";
 import UserAvatarImage from "./UserAvatarImage";
 import UserCoverImage from "./UserCoverImage";
+import { toast } from "react-toastify";
 
 const UserProfilePage = () => {
   const userId = useAuthStore((state) => state.auth.id);
@@ -14,6 +14,16 @@ const UserProfilePage = () => {
       const result = await axiosInstance.get(`/users/${userId}`);
       return result.data;
     },
+  });
+  const profileUpdateMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const result = await axiosInstance.patch(`/users/${userId}`, data);
+      console.log("profile update result: ", result);
+      return result.data;
+    },
+    onSuccess: () => {
+      toast.success("Profile updated successfully");
+    }
   });
   const [bio, setBio] = React.useState(data?.data?.info);
   const [avatarImage, setAvatarImage] = React.useState(data?.data?.avatarImage);
@@ -35,14 +45,6 @@ const UserProfilePage = () => {
     }
   };
 
-  const handleCoverImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      const imageurl = await uploadImage(e.target.files[0]);
-      setCoverImage(imageurl);
-      setFormChanged(true);
-    }
-  };
-
   const handleUpdate = () => {
     const update = {
       info: bio,
@@ -50,11 +52,13 @@ const UserProfilePage = () => {
       coverImage: coverImage,
     };
     console.log("changed fields: ", update);
+    // now make an update request to the backend
+    profileUpdateMutation.mutate(update);
   };
 
   return (
     <div className="min-h-[100vh]">
-      {JSON.stringify(data?.data)}
+      {/* {JSON.stringify(data?.data)} */}
       {isPending && <p>Loading...</p>}
       {isSuccess && data && (
         <div className="flex flex-col gap-4 p-8 bg-transparent max-w-[700px] m-auto">
@@ -101,16 +105,27 @@ const UserProfilePage = () => {
           />
 
           {/* Cover Image Field */}
-          <UserCoverImage handleCoverImageUpload={handleCoverImageUpload} />
+          <UserCoverImage
+            coverImage={coverImage}
+            setCoverImage={setCoverImage}
+            setFormChanged={setFormChanged}
+          />
 
           {/* Submit Button */}
           <div className="flex justify-end">
             <button
               onClick={handleUpdate}
-              disabled={!formChanged}
+              disabled={!formChanged || profileUpdateMutation.isPending}
               className="px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 disabled:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:cursor-not-allowed"
             >
-              Update
+              {profileUpdateMutation.isPending ? (
+                <span className="flex items-center">
+                  Updating...
+                  <span className="size-5 border border-t-transparent border-white animate-spin rounded-full inline-block"></span>
+                </span>
+              ) : (
+                "Update"
+              )}
             </button>
           </div>
         </div>

@@ -11,7 +11,7 @@
     @apply bg-gray-800 text-gray-300
   }
   .mw{
-    @apply max-w-[1100px] m-auto
+    @apply max-w-[1200px] m-auto
   }
 }
 

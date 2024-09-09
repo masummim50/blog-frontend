@@ -4,7 +4,7 @@ import { blogPostedTime } from "../../utils/blogPostFunctions";
 import { AiFillLike } from "react-icons/ai";
 import { MdModeComment } from "react-icons/md";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import useAuthStore from "../../zustand/authStore";
@@ -13,11 +13,14 @@ import { queryClient } from "../../main";
 const BlogCard = ({
   post,
   pageIndex,
+  queryKey,
 }: {
   post: BlogCardPropsType;
   pageIndex: number;
+  queryKey: string;
 }) => {
   // console.log("page index: ", pageIndex)
+  const navigate = useNavigate();
   const userId = useAuthStore((state) => state.auth.id);
   const likeMutation = useMutation({
     mutationFn: async (param: string) => {
@@ -25,7 +28,7 @@ const BlogCard = ({
       return response.data;
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(["posts"], (oldData) => {
+      queryClient.setQueryData([queryKey], (oldData:any) => {
         console.log("old data: ", oldData);
         console.log("old data with page index: ", oldData.pages[pageIndex]);
         return {
@@ -60,9 +63,14 @@ const BlogCard = ({
     likeMutation.mutate(param);
   };
 
+  const handleAuthorClick = (e: React.MouseEvent<HTMLHeadingElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(`/${post.author.userName}/blog`);
+  };
+
   return (
     <Link
-    
       to={`/post/${post._id}`}
       className="bg-gray-200 dark:bg-gray-700/40 hover:bg-gray-300 hover:dark:bg-gray-700 py-3 block text-black dark:text-white mb-3"
     >
@@ -70,15 +78,21 @@ const BlogCard = ({
         <div className="px-2 w-[70%] sm:w-[100%]">
           <div className="flex justify-start sm:justify-between sm:items-center ">
             <div className="flex items-center gap-1">
-              {post.author.coverImage ? (
-                <img className="w-[30px]" src={post.author.coverImage} alt="" />
+              {post.author.avatarImage ? (
+                <img
+                  className="size-[30px] rounded-full "
+                  src={post.author.avatarImage}
+                  alt=""
+                />
               ) : (
                 <div className="size-[30px] bg-white dark:bg-gray-900 flex items-center justify-center rounded-full">
                   {post.author?.userName?.slice(0, 1)}
                 </div>
               )}
               <div className="flex flex-col">
-                <h2>{post.author.userName}</h2>
+                <h2 className="hover:underline" onClick={handleAuthorClick}>
+                  {post.author.userName}
+                </h2>
                 <span className="text-[8px]">
                   {blogPostedTime(post.createdAt)}
                 </span>
@@ -95,7 +109,7 @@ const BlogCard = ({
         <div className="sm:w-[100%] w-[30%]">
           <img
             src={post.image}
-            className="w-full my-2 min-h-[50px] sm:min-h-[100px] transition-all"
+            className={`w-full my-2 min-h-[50px] sm:min-h-[100px] transition-all `}
             alt=""
           />
         </div>
@@ -116,7 +130,7 @@ const BlogCard = ({
                 <div className="size-5 border border-t-transparent border-sky-400  rounded-full animate-spin"></div>
               ) : (
                 <AiFillLike
-                  className={`${
+                  className={ `hover:fill-sky-400 ${
                     post.likes.includes(userId || "")
                       ? "fill-sky-500"
                       : "fill-black dark:fill-gray-200"

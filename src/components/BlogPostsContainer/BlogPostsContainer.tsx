@@ -41,7 +41,7 @@ const BlogPostsContainer = ({
         >
           {data?.pages.map((page, pageIndex) =>
             page.data.map((d: BlogCardPropsType) => (
-              <BlogCard key={d._id} post={d} pageIndex={pageIndex} />
+              <BlogCard key={d._id} post={d} pageIndex={pageIndex} queryKey={queryKey} />
             ))
           )}
         </Masonry>

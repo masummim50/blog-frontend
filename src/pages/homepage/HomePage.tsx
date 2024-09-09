@@ -58,7 +58,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="min-h-[100vh]">
+    <div className="min-h-[100vh] mw">
       <BlogPostsContainer apiEndPoint="/post" queryKey="posts" />
     </div>
 

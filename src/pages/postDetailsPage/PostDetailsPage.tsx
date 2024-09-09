@@ -81,7 +81,7 @@ const PostDetailsPage = () => {
   }
 
   return (
-    <div className="min-h-[100vh] l d">
+    <div className="min-h-[100vh] l d mw">
       {isLoading && (
         <div className="flex justify-center items-center min-h-[200px]">
           Loading...{" "}

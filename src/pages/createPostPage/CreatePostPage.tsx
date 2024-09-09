@@ -3,7 +3,7 @@ import MyEditor from './MyEditor';
 
 const CreatePostPage = () => {
     return (
-        <div>
+        <div className='mw'>
             <MyEditor/>
         </div>
     );

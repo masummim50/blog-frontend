@@ -10,7 +10,7 @@ export interface BlogCardPropsType {
   author: {
     _id: string;
     userName: string;
-    coverImage: string;
+    avatarImage: string;
   };
   views: number;
   createdAt: string;

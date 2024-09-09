@@ -8,6 +8,9 @@ import Tags from "./Tags";
 import { posts } from "./PostData";
 import { axiosInstance } from "../../axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
+import { Bounce, toast } from "react-toastify";
+import useAuthStore from "../../zustand/authStore";
+import { useNavigate } from "react-router-dom";
 
 interface PostDataType {
   title: string;
@@ -17,6 +20,8 @@ interface PostDataType {
 }
 
 const MyEditor = () => {
+  const userName = useAuthStore((state) => state.auth.userName);
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [value, setValue] = useState("");
@@ -47,6 +52,22 @@ const MyEditor = () => {
     },
     onSuccess: (data) => {
       console.log("Post created successfully:", data);
+      toast.success("Post Published Successfully", {
+        position: "bottom-right",
+        autoClose: 1200,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      setTitle("");
+      setValue("");
+      setTags([]);
+      setImage("");
+      navigate(`/${userName}/blog`);
       // Handle successful post creation (e.g., redirect or show success message)
     },
     onError: (error) => {
@@ -69,7 +90,7 @@ const MyEditor = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-      <div className="col-span-1 h-[90vh]  overflow-y-scroll no-scrollbar flex flex-col">
+      <div className="col-span-1 h-[90vh] overflow-y-scroll no-scrollbar flex flex-col">
         <div className="text-right">
           <button
             onClick={generateRandomPost}
@@ -102,7 +123,7 @@ const MyEditor = () => {
               !formFilled ? "cursor-not-allowed opacity-70" : "cursor-pointer"
             } `}
           >
-            {mutation.isPending ? 'Publishing...' : 'Publish'}
+            {mutation.isPending ? "Publishing..." : "Publish"}
           </button>
         </div>
       </div>

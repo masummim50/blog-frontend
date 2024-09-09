@@ -25,7 +25,7 @@ const UserAvatarImage = ({
     <div className="flex items-center justify-center">
       <label
         className={`transition-all border border-black   rounded-full p-2 w-[100px] h-[100px]  cursor-pointer mb-2 text-center flex items-center justify-center relative ${
-          avatarImage ? `  bg-cover w-[100px] h-full` : ""
+          avatarImage ? `  bg-cover w-[100px] ` : ""
         }`}
         style={{
           backgroundImage: avatarImage ? `url(${avatarImage})` : "none",

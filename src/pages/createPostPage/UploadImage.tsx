@@ -9,8 +9,10 @@ const UploadImageInput = ({
 }) => {
   const [imageUploading, setImageUploading] = useState(false);
   const [showImageUploadFailed, setShowImageUploadFailed] = useState(false);
+
   const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     setImageUploading(true);
+
     if (e.target.files?.length) {
       try {
         const imageUrl = await uploadImage(e.target.files[0]);
@@ -52,8 +54,8 @@ const UploadImageInput = ({
       </label>
 
       <div
-        className={`relative h-[2px] w-full bg-green-500 overflow-hidden mb-3 ${
-          imageUploading ? "opacity-100" : "opacity-0"
+        className={`relative  p-[1px]  w-full bg-green-500 overflow-hidden ${
+          imageUploading ?  "opacity-100" : "opacity-0"
         }`}
       >
         <div className="absolute top-0 left-0 h-full w-full bg-white animate-progress-bar"></div>

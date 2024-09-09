@@ -4,7 +4,8 @@ import AppRouter from "./AppRouter";
 import { themeContext } from "./context/themeContext";
 import useAuthStore from "./zustand/authStore";
 import { jwtDecode } from "jwt-decode";
-
+import { Bounce, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const setUser = useAuthStore((state) => state.setUser);
   const [darkTheme, setDarkTheme] = useState<boolean>(true);
@@ -30,6 +31,19 @@ function App() {
   return (
     <themeContext.Provider value={{ darkTheme, setDarkTheme }}>
       <div className={`${darkTheme ? "dark" : ""}`}>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={1200}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Bounce}
+        />
         <div className="dark:bg-orange-950 bg-white">
           <AppRouter />
         </div>

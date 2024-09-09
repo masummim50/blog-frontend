@@ -9,6 +9,9 @@ import PrivateRoute from "./components/privateRouteWrapper/PrivateRoute";
 import UserHomePage from "./pages/UserHomePage/UserHomePage";
 import PostDetailsPage from "./pages/postDetailsPage/PostDetailsPage";
 import UserProfilePage from "./pages/userProfilePage/UserProfilePage";
+import UserHomePageLayout from "./pages/UserHomePage/UserHomePageLayout";
+import UserPostsSection from "./pages/UserHomePage/UserPostsSection";
+import UserShareSection from "./pages/UserHomePage/UserShareSection";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +33,18 @@ const router = createBrowserRouter([
       },
       {
         path: "/:username/blog",
-        element: <UserHomePage />,
+        // element: <UserHomePage />,
+        element: <UserHomePageLayout />,
+        children: [
+          {
+            path: "/:username/blog",
+            element: <UserPostsSection/>
+          },
+          {
+            path: "/:username/blog/shares",
+            element: <UserShareSection/>
+          }
+        ]
       },
       {
         path: "/:username/profile",
