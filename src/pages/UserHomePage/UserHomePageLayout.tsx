@@ -6,8 +6,8 @@ import UserBanner from "./UserBanner";
 
 const UserHomePageLayout = () => {
   const { username } = useParams();
-  const {pathname} = useLocation()
-  console.log("pathname: ", pathname)
+  const { pathname } = useLocation();
+  console.log("pathname: ", pathname);
   console.log(username);
 
   const { data, isLoading, isSuccess } = useQuery({
@@ -19,17 +19,29 @@ const UserHomePageLayout = () => {
   });
   return (
     <div className="min-h-[100vh]">
-      {isLoading && <div className="min-h-[100px] flex items-center justify-center">Loading Profile Info... <span className="inline-block size-5 border border-t-transparent rounded-full animate-spin"></span></div>}
+      {isLoading && (
+        <div className="min-h-[100px] flex items-center justify-center">
+          Loading Profile Info...{" "}
+          <span className="inline-block size-5 border border-t-transparent rounded-full animate-spin"></span>
+        </div>
+      )}
 
       {isSuccess && data && <UserBanner user={data.data} />}
 
       {isSuccess && (
         <div className="mw flex">
-          <Link className={`px-3 py-1 rounded-md border-gray-400 border ${pathname === `/${username}/blog` ? 'bg-sky-600' : ''} `} to={``}>
+          <Link
+            className={`px-3 py-1 rounded-md border-gray-400 border ${
+              pathname === `/${username}/blog` ? "bg-sky-600" : ""
+            } `}
+            to={``}
+          >
             Posts
           </Link>
           <Link
-            className={`px-3 py-1 rounded-md border-gray-400 border  ${pathname === `/${username}/blog/shares` ? 'bg-sky-600' : ''}`}
+            className={`px-3 py-1 rounded-md border-gray-400 border  ${
+              pathname === `/${username}/blog/shares` ? "bg-sky-600" : ""
+            }`}
             to={`shares`}
           >
             Shares

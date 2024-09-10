@@ -39,23 +39,28 @@ const ProfileDrowdown = ({
     },
   ];
 
-  const handleLogout = ()=> {
+  const handleLogout = () => {
     localStorage.removeItem("blog-token");
     removeUser();
-  }
+  };
 
   return (
     <div
       id="profile-dropdown"
-      className={`absolute top-[100%] h-[90vh] bg-black/50 backdrop-blur-sm transition-all duration-300 ease-in-out overflow-hidden ${
+      className={`absolute top-[100%] h-[90vh] bg-black/50 backdrop-blur-sm transition-all duration-300 ease-in-out text-white overflow-hidden ${
         showProfileDropdown ? "right-0" : "right-[-100%]"
       }`}
     >
       <div className="h-[100px]">Profile section</div>
-      <div>
+      <div className="min-w-[180px]">
         {links.map((link) => (
           <div key={link.title}>
-            <Link className="py-2 pr-20 pl-3 inline-block border-b hover:bg-black/60" to={link.url}>{link.title}</Link>
+            <Link
+              className="py-2 pl-3  block border-b hover:bg-black/60"
+              to={link.url}
+            >
+              {link.title}
+            </Link>
           </div>
         ))}
         <button onClick={handleLogout}>Logout</button>

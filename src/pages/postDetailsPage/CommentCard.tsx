@@ -4,9 +4,9 @@ import { blogPostedTime } from "../../utils/blogPostFunctions";
 
 const CommentCard = ({ comment }: { comment: Comment }) => {
   return (
-    <div className="mb-3">
-      <div className="flex items-start">
-        <div className="size-8 bg-black rounded-full flex justify-center items-center">
+    <div className="mb-4">
+      <div className="flex items-start gap-2">
+        <div className="size-8 overflow-clip bg-black rounded-full flex justify-center items-center">
           {comment.author.coverImage ? (
             <img src={comment.author.coverImage} alt="" />
           ) : (
@@ -16,16 +16,16 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
 
         <div className="flex-grow">
           <div className="flex items-center gap-1">
-            <div className="font-semibold">{comment.author.userName}</div>
+            <div className="font-bold">{comment.author.userName}</div>
             <span className="size-1 bg-white rounded-full"></span>
-            <div className="text-xs text-gray-400">
+            <div className="text-xs text-gray-600 dark:text-gray-400">
               {blogPostedTime(comment.createdAt)}
             </div>
           </div>
-          <h2 className="text-base text-white">{comment.content}</h2>
+          <h2 className="text-sm  font-extralight">{comment.content}</h2>
         </div>
       </div>
-      <button>Reply</button>
+      {/* <button>Reply</button> */}
     </div>
   );
 };

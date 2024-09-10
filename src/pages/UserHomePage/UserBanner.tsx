@@ -15,10 +15,10 @@ const UserBanner = ({ user }: { user: any }) => {
         }}
       >
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black/20 "></div>
+        <div className="absolute inset-0 bg-black/40 "></div>
 
         {/* Avatar & Information */}
-        <div className="relative z-10 flex flex-col items-center justify-center h-full  px-4">
+        <div className="relative z-10 flex flex-col text-white items-center justify-center h-full  px-4">
           {/* Avatar */}
           <div className="relative">
             {user?.avatarImage ? (
@@ -28,7 +28,7 @@ const UserBanner = ({ user }: { user: any }) => {
                 className="w-24 h-24 rounded-full object-cover border-4 border-white"
               />
             ) : (
-              <div className="w-24 h-24 bg-gray-200 dark:bg-gray-800 text-black flex items-center justify-center rounded-full border-4 border-white">
+              <div className="w-24 h-24 bg-gray-200 dark:bg-gray-800  flex items-center justify-center rounded-full border-4 border-white">
                 <span className="text-3xl font-bold">
                   {user?.userName?.[0]?.toUpperCase() || "U"}
                 </span>

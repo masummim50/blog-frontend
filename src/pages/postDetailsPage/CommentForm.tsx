@@ -77,7 +77,7 @@ const CommentForm = ({ postId }: { postId: string }) => {
           onChange={handleChange}
           placeholder="Write your comment..."
           rows={4}
-          className="resize-none overflow-hidden w-full p-4  focus:outline-none  border-[1px] border-white/20 focus:ring-0 bg-gray-900/30"
+          className="resize-none overflow-hidden w-full p-4  focus:outline-none  border-[1px] border-white/20 focus:ring-0 bg-gray-300 dark:bg-gray-900/30"
         />
       </div>
       <div className="flex justify-end">

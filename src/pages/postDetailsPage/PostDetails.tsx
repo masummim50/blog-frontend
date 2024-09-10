@@ -7,6 +7,7 @@ import { AiFillLike } from "react-icons/ai";
 import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "../../axios/axiosInstance";
 import { queryClient } from "../../main";
+import { Link } from "react-router-dom";
 
 const PostDetails = ({ post }: { post: Post }) => {
   const user = useAuthStore((state) => state.auth);
@@ -109,7 +110,7 @@ const PostDetails = ({ post }: { post: Post }) => {
                     <div className="size-5 border border-t-transparent border-sky-400  rounded-full animate-spin"></div>
                   ) : (
                     <AiFillLike
-                      className={`${
+                      className={`hover:cursor-pointer hover:fill-sky-400${
                         post.likes.map((l) => l._id).includes(user.id || "")
                           ? "fill-sky-500"
                           : "fill-gray-200"
@@ -123,6 +124,15 @@ const PostDetails = ({ post }: { post: Post }) => {
               </div>
             </div>
           </div>
+        </div>
+        {/* add tags section */}
+        <div className="h-[1px] bg-gray-400 w-full my-4"></div>
+        <div className="flex flex-wrap gap-1">
+          {post.tags.map((tag, i) => (
+            <Link preventScrollReset={true} className="bg-gray-300 dark:bg-gray-600 hover:bg-sky-400 text-black dark:text-white px-2 py-1 rounded-sm" to={`/trending/${tag}`} key={i}>
+              {tag}
+            </Link>
+          ))}
         </div>
       </div>
     </div>

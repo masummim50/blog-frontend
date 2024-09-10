@@ -12,6 +12,8 @@ import UserProfilePage from "./pages/userProfilePage/UserProfilePage";
 import UserHomePageLayout from "./pages/UserHomePage/UserHomePageLayout";
 import UserPostsSection from "./pages/UserHomePage/UserPostsSection";
 import UserShareSection from "./pages/UserHomePage/UserShareSection";
+import TrendingPage from "./pages/trendingPage/TrendingPage";
+import TrendingTagPage from "./pages/trendingTagPage/TrendingTagPage";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +26,12 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/game",
-        element: <GameHomePage />,
+        path: "/trending",
+        element: <TrendingPage />,
+      },
+      {
+        path: "/trending/:tag",
+        element: <TrendingTagPage />,
       },
       {
         path: "/post/:id",

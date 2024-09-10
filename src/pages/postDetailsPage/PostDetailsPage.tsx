@@ -92,8 +92,8 @@ const PostDetailsPage = () => {
       {/* render the rest of the data */}
       {isSuccess && (
         <div className="m-auto max-w-[700px]">
-          <div className="bg-gray-700 p-4 sm:p-6 md:p-10">
-            <h2 className="text-2xl font-bold text-white">{post?.title}</h2>
+          <div className="bg-gray-200 dark:bg-gray-700 text-black dark:text-white p-4 sm:p-6 md:p-10">
+            <h2 className="text-2xl font-bold ">{post?.title}</h2>
             <div className="flex items-center text-xs font-extralight text-white gap-1 mb-5">
               <span className="text-sky-400 ">
                 {post?.comments.length} Comments

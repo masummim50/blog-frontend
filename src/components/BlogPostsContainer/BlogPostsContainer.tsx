@@ -33,6 +33,12 @@ const BlogPostsContainer = ({
         </div>
       )}
 
+      {
+         data?.pages[0].data.length === 0 && (
+          <div className="text-black p-5 dark:text-white text-center">No Data Found </div>
+        )
+      }
+
       <div className="">
         <Masonry
           breakpointCols={breakpointColumnsObj}

@@ -6,6 +6,7 @@ export interface BlogCardPropsType {
   tags: string[];
   _id: string;
   likes: [string];
+  shares: [string];
   comments: [string];
   author: {
     _id: string;

@@ -3,13 +3,14 @@ import BlogPostsContainer from "../../components/BlogPostsContainer/BlogPostsCon
 import { useOutletContext } from "react-router-dom";
 
 const UserPostsSection = () => {
-    const data = useOutletContext()
+    const data = useOutletContext();
+    console.log("context data: ", data)
   return (
     <div className="mw">
       
         <BlogPostsContainer
           apiEndPoint={`post/${data}/posts`}
-          queryKey="user-posts"
+          queryKey={`user-${data}`}
         />
       
     </div>

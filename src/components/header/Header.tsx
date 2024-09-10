@@ -34,12 +34,7 @@ const Header = () => {
           )}
           {/* profile icon should be conditional */}
           {/* if logged in show profile icon else show sign up or login option */}
-          <Link
-            className="rounded-md border border-gray-300 px-2 py-1 inline-block hover:bg-gray-400 hover:text-black"
-            to={"/game"}
-          >
-            Game
-          </Link>
+          
           {id ? (
             <ProfileIcon />
           ) : (
