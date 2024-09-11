@@ -66,9 +66,7 @@ const BlogCard = ({
       return response.data;
     },
     onSuccess: (data) => {
-      toast.success("Post shared successfully", {
-        
-      });
+      toast.success("Post shared successfully", {});
       setShowModal(false);
       queryClient.setQueryData([queryKey], (oldData: any) => {
         console.log("old data: ", oldData);
@@ -93,7 +91,7 @@ const BlogCard = ({
           }),
         };
       });
-    }
+    },
   });
 
   const handleLike = (
@@ -102,6 +100,10 @@ const BlogCard = ({
   ) => {
     e.stopPropagation();
     e.preventDefault();
+    if(!userId){
+      toast.error("Please login to like a post", {});
+      return;
+    }
     likeMutation.mutate(param);
   };
 
@@ -193,18 +195,21 @@ const BlogCard = ({
               <div className=" text-right text-xl justify-end items-center flex gap-1 mr-1">
                 {post.views} <FaEye className="" />
               </div>
-              <div className="size-1 bg-white rounded-full mt-[3px]"></div>
+              <div className="size-1 bg-black dark:bg-white rounded-full mt-[3px]"></div>
               <FaShareSquare
                 onClick={(e) => {
-                  if(post.author._id === userId) return;
-                  if(post.shares.includes(userId as string)) return;
+                  if (post.author._id === userId) return;
+                  if (post.shares.includes(userId as string)) return;
                   e.preventDefault();
                   setShowModal(true);
                 }}
                 className={` text-xl ${
-                  post.author._id === userId ? "fill-gray-600" : "fill-white hover:fill-sky-400"
+                  post.author._id === userId
+                    ? "fill-gray-400 dark:fill-gray-600"
+                    : "fill-black dark:fill-white hover:fill-sky-400"
                 } ${
-                  post.shares.includes(userId as string) ? "fill-sky-400" : ""}`}
+                  post.shares.includes(userId as string) ? "fill-sky-400" : ""
+                }`}
               />
             </div>
           </div>

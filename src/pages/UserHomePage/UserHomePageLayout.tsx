@@ -29,7 +29,7 @@ const UserHomePageLayout = () => {
       {isSuccess && data && <UserBanner user={data.data} />}
 
       {isSuccess && (
-        <div className="mw flex">
+        <div className="mw flex p-2">
           <Link
             className={`px-3 py-1 rounded-md border-gray-400 border ${
               pathname === `/${username}/blog` ? "bg-sky-600" : ""

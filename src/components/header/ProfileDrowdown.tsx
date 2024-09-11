@@ -10,6 +10,7 @@ const ProfileDrowdown = ({
   setShowProfileDropdown: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const removeUser = useAuthStore((state) => state.removeUser);
+  const avatarIamge = useAuthStore((state) => state.auth.image);
   const handleClickOutside = (e: MouseEvent) => {
     const container = document.getElementById(
       "profile-dropdown"
@@ -31,11 +32,15 @@ const ProfileDrowdown = ({
   const links = [
     {
       title: "My Profile",
-      url: `${userName}/profile`,
+      url: `me/profile`,
     },
     {
       title: "My Blog",
       url: `${userName}/blog`,
+    },
+    {
+      title: "Communities",
+      url: `/communities`,
     },
   ];
 
@@ -51,7 +56,14 @@ const ProfileDrowdown = ({
         showProfileDropdown ? "right-0" : "right-[-100%]"
       }`}
     >
-      <div className="h-[100px]">Profile section</div>
+      <div
+        className="h-[100px]"
+        style={{
+          backgroundImage: `url(${avatarIamge})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
       <div className="min-w-[180px]">
         {links.map((link) => (
           <div key={link.title}>

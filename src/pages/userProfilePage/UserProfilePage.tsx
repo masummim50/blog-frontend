@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 const UserProfilePage = () => {
   const userId = useAuthStore((state) => state.auth.id);
+  const setUserImage = useAuthStore((state)=> state.setUserImage)
   const { data, isSuccess, isPending } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
@@ -15,14 +16,17 @@ const UserProfilePage = () => {
       return result.data;
     },
   });
+  
   const profileUpdateMutation = useMutation({
     mutationFn: async (data: any) => {
       const result = await axiosInstance.patch(`/users/${userId}`, data);
       console.log("profile update result: ", result);
       return result.data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success("Profile updated successfully");
+      const imageLink = data.data.avatarImage;
+      setUserImage(imageLink);
     }
   });
   const [bio, setBio] = React.useState(data?.data?.info);

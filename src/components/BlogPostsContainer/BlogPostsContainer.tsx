@@ -2,6 +2,7 @@ import useInfiniteFetchPosts from "../../hooks/useInfinitePosts";
 import Masonry from "react-masonry-css";
 import { BlogCardPropsType } from "../../types/BlogPostTypes";
 import BlogCard from "../../components/BlogCard/BlogCard";
+import { motion } from "framer-motion";
 
 const breakpointColumnsObj = {
   default: 4,
@@ -33,12 +34,11 @@ const BlogPostsContainer = ({
         </div>
       )}
 
-      {
-         data?.pages[0].data.length === 0 && (
-          <div className="text-black p-5 dark:text-white text-center">No Data Found </div>
-        )
-      }
-
+      {data?.pages[0].data.length === 0 && (
+        <div className="text-black p-5 dark:text-white text-center">
+          No Data Found{" "}
+        </div>
+      )}
       <div className="">
         <Masonry
           breakpointCols={breakpointColumnsObj}
@@ -47,7 +47,20 @@ const BlogPostsContainer = ({
         >
           {data?.pages.map((page, pageIndex) =>
             page.data.map((d: BlogCardPropsType) => (
-              <BlogCard key={d._id} post={d} pageIndex={pageIndex} queryKey={queryKey} />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.4 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+                viewport={{ once: true }}
+                key={d._id}
+              >
+                <BlogCard
+                  key={d._id}
+                  post={d}
+                  pageIndex={pageIndex}
+                  queryKey={queryKey}
+                />
+              </motion.div>
             ))
           )}
         </Masonry>

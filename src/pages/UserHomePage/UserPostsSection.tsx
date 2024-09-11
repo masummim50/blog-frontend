@@ -6,7 +6,7 @@ const UserPostsSection = () => {
     const data = useOutletContext();
     console.log("context data: ", data)
   return (
-    <div className="mw">
+    <div className="mw p-2">
       
         <BlogPostsContainer
           apiEndPoint={`post/${data}/posts`}

@@ -1,7 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
+
 import { useParams } from "react-router-dom";
-import { axiosInstance } from "../../axios/axiosInstance";
 import BlogPostsContainer from "../../components/BlogPostsContainer/BlogPostsContainer";
 
 const UserShareSection = () => {
@@ -14,7 +12,7 @@ const UserShareSection = () => {
 //       }
 //   })
   return (
-    <div className="mw pt-5">
+    <div className="mw pt-5 px-2">
       
       <BlogPostsContainer
         apiEndPoint={`/post/shared/${param.username}`}

@@ -12,7 +12,7 @@ const ProfileIcon = () => {
   const avatarImage = useAuthStore((state) => state.auth.image);
   return (
     <div className="flex items-center cursor-pointer">
-      <Link to={`/${userName}/write`} className="p-4">
+      <Link to={`/me/write`} className="p-4">
         <FaPenFancy className="p-1  text-4xl" />
       </Link>
       <div

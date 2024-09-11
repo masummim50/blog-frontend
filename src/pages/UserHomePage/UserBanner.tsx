@@ -1,6 +1,7 @@
 import React from "react";
 
 const UserBanner = ({ user }: { user: any }) => {
+  console.log("user: ", user);
   return (
     <div className="relative w-full h-64 mb-7 text-black dark:text-white">
       {/* Banner with background cover image or default color */}

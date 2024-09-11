@@ -11,7 +11,8 @@ type authStore = {
     image: string | null;
   };
 
-  setUser: (paylaod: payloadType) => void;
+  setUser: (payload: payloadType) => void;
+  setUserImage: (payload: string) => void;
   removeUser: () => void;
 };
 
@@ -20,7 +21,7 @@ type payloadType = {
   id: string;
   userName: string;
   email: string;
-  image: string;
+  image: string | null;
 };
 
 const useAuthStore = create<authStore>()(
@@ -34,6 +35,10 @@ const useAuthStore = create<authStore>()(
       image: null,
     },
     setUser: (payload: payloadType) => set(() => ({ auth: payload })),
+    setUserImage: (payload: string) =>
+      set((state) => ({
+        auth: { ...state.auth, image: payload },
+      })),
     removeUser: () =>
       set({
         auth: {

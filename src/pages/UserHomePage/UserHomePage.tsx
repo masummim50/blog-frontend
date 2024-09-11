@@ -1,10 +1,4 @@
-import useAuthStore from "../../zustand/authStore";
 
-import BlogPostsContainer from "../../components/BlogPostsContainer/BlogPostsContainer";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../../axios/axiosInstance";
-import UserBanner from "./UserBanner";
 
 const UserHomePage = () => {
   // const userid = useAuthStore((state) => state.auth.id);

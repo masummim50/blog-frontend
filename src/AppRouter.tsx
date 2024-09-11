@@ -14,6 +14,7 @@ import UserPostsSection from "./pages/UserHomePage/UserPostsSection";
 import UserShareSection from "./pages/UserHomePage/UserShareSection";
 import TrendingPage from "./pages/trendingPage/TrendingPage";
 import TrendingTagPage from "./pages/trendingTagPage/TrendingTagPage";
+import CommunityPage from "./pages/communityPage/CommunityPage";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         element: <TrendingPage />,
       },
       {
+        path: "/communities",
+        element: <CommunityPage />,
+      },
+      {
         path: "/trending/:tag",
         element: <TrendingTagPage />,
       },
@@ -44,20 +49,24 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/:username/blog",
-            element: <UserPostsSection/>
+            element: <UserPostsSection />,
           },
           {
             path: "/:username/blog/shares",
-            element: <UserShareSection/>
-          }
-        ]
+            element: <UserShareSection />,
+          },
+        ],
       },
       {
-        path: "/:username/profile",
-        element: <UserProfilePage />,
+        path: "/me/profile",
+        element: (
+          <PrivateRoute>
+            <UserProfilePage />
+          </PrivateRoute>
+        ),
       },
       {
-        path: "/:username/write",
+        path: "/me/write",
         element: (
           <PrivateRoute>
             <CreatePostPage />

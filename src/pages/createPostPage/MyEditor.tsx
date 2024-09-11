@@ -90,7 +90,7 @@ const MyEditor = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-      <div className="col-span-1 h-[90vh] overflow-y-scroll no-scrollbar flex flex-col">
+      <div className="col-span-1 mb-7 h-[100vh] overflow-y-scroll no-scrollbar flex flex-col">
         <div className="text-right">
           <button
             onClick={generateRandomPost}
