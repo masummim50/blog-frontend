@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { axiosInstance } from "./axios/axiosInstance";
+import ScrollResetWrapper from "./ScrollResetWrapper";
 function App() {
   const setUser = useAuthStore((state) => state.setUser);
   const  setUserImage = useAuthStore((state)=> state.setUserImage)
@@ -51,6 +52,8 @@ function App() {
           transition={Bounce}
         />
         <div className="dark:bg-orange-950 bg-white">
+          
+
           <AppRouter />
         </div>
       </div>

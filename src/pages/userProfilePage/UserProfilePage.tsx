@@ -61,9 +61,9 @@ const UserProfilePage = () => {
   };
 
   return (
-    <div className="min-h-[100vh]">
+    <div className="min-h-[100vh] pt-5">
       {/* {JSON.stringify(data?.data)} */}
-      {isPending && <p>Loading...</p>}
+      {isPending && <div className="flex items-center justify-center h-[100px]">Fetching Profile data... <span className="inline-block size-5 border border-black dark:border-white border-t-transparent dark:border-t-transparent rounded-full animate-spin "></span></div>}
       {isSuccess && data && (
         <div className="flex flex-col gap-4 p-8 bg-transparent max-w-[700px] m-auto">
           {/* Username Field */}

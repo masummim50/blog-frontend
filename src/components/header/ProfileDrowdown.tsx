@@ -68,6 +68,7 @@ const ProfileDrowdown = ({
         {links.map((link) => (
           <div key={link.title}>
             <Link
+            preventScrollReset={true}
               className="py-2 pl-3  block border-b hover:bg-black/60"
               to={link.url}
             >

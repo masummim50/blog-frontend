@@ -4,9 +4,7 @@ import LoginPage from "./pages/loginpage/LoginPage";
 import RegisterPage from "./pages/registerpage/RegisterPage";
 import HomePage from "./pages/homepage/HomePage";
 import CreatePostPage from "./pages/createPostPage/CreatePostPage";
-import GameHomePage from "./game/GameHomePage";
 import PrivateRoute from "./components/privateRouteWrapper/PrivateRoute";
-import UserHomePage from "./pages/UserHomePage/UserHomePage";
 import PostDetailsPage from "./pages/postDetailsPage/PostDetailsPage";
 import UserProfilePage from "./pages/userProfilePage/UserProfilePage";
 import UserHomePageLayout from "./pages/UserHomePage/UserHomePageLayout";
@@ -15,6 +13,7 @@ import UserShareSection from "./pages/UserHomePage/UserShareSection";
 import TrendingPage from "./pages/trendingPage/TrendingPage";
 import TrendingTagPage from "./pages/trendingTagPage/TrendingTagPage";
 import CommunityPage from "./pages/communityPage/CommunityPage";
+import CommunityDetailsPage from "./pages/CommunityDetailsPage/CommunityDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/communities",
         element: <CommunityPage />,
+      },
+      {
+        path: "/communities/:id",
+        element: <CommunityDetailsPage />,
       },
       {
         path: "/trending/:tag",

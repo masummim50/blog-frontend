@@ -1,6 +1,13 @@
+import { useMutation } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { axiosInstance } from "../../axios/axiosInstance";
+import CommunityImage from "./CommunityImage";
+import CommunityCoverImage from "./CommunityCoverImage";
+import { toast } from "react-toastify";
+import { queryClient } from "../../main";
+import useAuthStore from "../../zustand/authStore";
 
 const CreateCommunityModal = ({
   showModal,
@@ -9,13 +16,35 @@ const CreateCommunityModal = ({
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const userId = useAuthStore((state) => state.auth.id);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
+  const [coverImage, setCoverImage] = useState("");
   const [rules, setRules] = useState<{ id: string; value: string }[]>([]);
   const [isPublishDisabled, setPublishDisabled] = useState(true);
 
+  const createCommunityMutation = useMutation({
+    mutationFn: async (data: {
+      name: string;
+      description: string;
+      rules: string[];
+      image: string;
+      coverImage: string;
+    }) => {
+      const response = await axiosInstance.post("/community/create", data);
+      return response.data;
+    },
+    onSuccess: () => {
+      toast.success("Community created successfully");
+      setShowModal(false);
+      queryClient.invalidateQueries({ queryKey: [`communityCreatedBy-${userId}`] });
+    },
+  });
+
   const handleAddRule = () => {
     setRules([...rules, { id: uuidv4(), value: "" }]);
+    setPublishDisabled(true);
     console.log(rules);
   };
 
@@ -35,14 +64,32 @@ const CreateCommunityModal = ({
     const allFilled =
       name.trim() !== "" &&
       description.trim() !== "" &&
-      rules.every((rule) => rule.value.trim() !== "");
+      (rules.length === 0 || rules.every((rule) => rule.value.trim() !== ""));
     setPublishDisabled(!allFilled);
   };
 
   const handleRemoveRule = (id: string) => {
     const newRules = rules.filter((rule) => rule.id !== id);
     setRules([...newRules]);
+    if (newRules.length === 0) {
+      setPublishDisabled(false);
+    } else {
+      const filled = newRules.every((rule) => rule.value.trim() !== "");
+      setPublishDisabled(!filled);
+    }
   };
+
+  const handlePublishCommunity = () => {
+    const rulesArray = rules.map((rule) => rule.value);
+    createCommunityMutation.mutate({
+      name,
+      description,
+      rules: rulesArray,
+      image,
+      coverImage,
+    });
+  };
+
   return (
     <AnimatePresence>
       {showModal && (
@@ -50,8 +97,7 @@ const CreateCommunityModal = ({
           initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.6 }}
-          tr
-          className={`  flex justify-center items-center min-h-[100vh] w-full fixed  top-0 left-0 z-50 bg-black/30 backdrop-blur-sm text-white `}
+          className={`  flex justify-center items-center min-h-[100vh] w-full fixed  top-0 left-0 z-50 bg-white/30 dark:bg-black/30 backdrop-blur-sm text-black dark:text-white `}
         >
           <div className="flex flex-col items-center space-y-4 p-6 w-full max-w-[800px] mx-auto border border-gray-800 rounded-md h-[90vh] overflow-y-auto no-scrollbar">
             <div className="w-full">
@@ -81,6 +127,17 @@ const CreateCommunityModal = ({
               />
             </div>
 
+            {/* upload image for community */}
+
+            <CommunityImage image={image} setImage={setImage} />
+
+            <CommunityCoverImage
+              coverImage={coverImage}
+              setCoverImage={setCoverImage}
+            />
+
+            {/* rules section */}
+
             <div className="w-full">
               <label className="block mb-2 text-sm font-medium">Rules</label>
               <AnimatePresence>
@@ -103,7 +160,7 @@ const CreateCommunityModal = ({
                     />
                     <button
                       onClick={() => handleRemoveRule(rule.id)}
-                      className="absolute top-0 right-0 bg-red-500 hover:bg-red-600 transition-all h-full z-40 rounded-tr-sm rounded-br-sm px-4"
+                      className="absolute top-0 right-0 bg-red-500 hover:bg-red-600 transition-all h-full z-40 rounded-tr-md rounded-br-md px-4"
                     >
                       Remove
                     </button>
@@ -126,14 +183,24 @@ const CreateCommunityModal = ({
                 Cancel
               </button>
               <button
-                disabled={isPublishDisabled}
+                onClick={handlePublishCommunity}
+                disabled={
+                  isPublishDisabled || createCommunityMutation.isPending
+                }
                 className={`px-4 py-2 bg-green-500 text-white rounded-tr-md rounded-br-md  ${
                   isPublishDisabled
                     ? "opacity-50 cursor-not-allowed"
                     : "hover:bg-green-600"
                 }`}
               >
-                Publish
+                {createCommunityMutation.isPending ? (
+                  <span className="flex items-center gap-1">
+                    Publishing...{" "}
+                    <span className="inline-block size-5 border border-t-transparent rounded-full animate-spin"></span>
+                  </span>
+                ) : (
+                  "Publish"
+                )}
               </button>
             </div>
           </div>
