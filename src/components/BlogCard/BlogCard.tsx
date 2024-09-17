@@ -8,11 +8,12 @@ import { MdModeComment } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
-import useAuthStore from "../../zustand/authStore";
 import { queryClient } from "../../main";
 import { FaEye } from "react-icons/fa";
 import ShareModal from "./ShareModal";
 import { toast } from "react-toastify";
+import useBoundStore from "../../zustand/store";
+import  parse  from 'html-react-parser';
 
 const BlogCard = ({
   post,
@@ -25,7 +26,7 @@ const BlogCard = ({
 }) => {
   // console.log("page index: ", pageIndex)
   const navigate = useNavigate();
-  const userId = useAuthStore((state) => state.auth.id);
+  const userId = useBoundStore((state) => state.auth.id);
   const [showModal, setShowModal] = useState(false);
 
   const likeMutation = useMutation({
@@ -147,12 +148,13 @@ const BlogCard = ({
                 </div>
               </div>
               <div className="flex-grow-0 text-sm mt-auto sm:mt-0 sm:flex-grow text-right">
-                {post.community ? "Community" : "Blog"}
+                {post.community ? <Link className="text-sky-400 font-bold dark:font-normal" to={`/communities/${post.community._id}`}>{post?.community?.name}</Link> : "Blog"}
               </div>
             </div>
             <p className="text-base font-semibold line-clamp-1 sm:line-clamp-none">
               {post.title}
             </p>
+            <span className="line-clamp-1 text-sm text-gray-400   sm:hidden">{parse(post.content)}</span>
           </div>
           <div className="sm:w-[100%] w-[30%]">
             <img
@@ -199,7 +201,7 @@ const BlogCard = ({
               <FaShareSquare
                 onClick={(e) => {
                   if (post.author._id === userId) return;
-                  if (post.shares.includes(userId as string)) return;
+                  if (post.shares.includes(userId as unknown as string)) return;
                   e.preventDefault();
                   setShowModal(true);
                 }}
@@ -208,7 +210,7 @@ const BlogCard = ({
                     ? "fill-gray-400 dark:fill-gray-600"
                     : "fill-black dark:fill-white hover:fill-sky-400"
                 } ${
-                  post.shares.includes(userId as string) ? "fill-sky-400" : ""
+                  post.shares.includes(userId as unknown as string) ? "fill-sky-400" : ""
                 }`}
               />
             </div>

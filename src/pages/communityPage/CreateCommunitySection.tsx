@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import useAuthStore from "../../zustand/authStore";
+import useBoundStore from "../../zustand/store";
 import CreateCommunityModal from "./CreateCommunityModal";
 
 const CreateCommunitySection = () => {
-  const userId = useAuthStore((state) => state.auth.id);
+  const userId = useBoundStore((state) => state.auth.id);
   const [showModal, setShowModal] = useState(false);
   if (!userId) return null;
 

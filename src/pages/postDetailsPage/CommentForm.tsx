@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { FaComment } from "react-icons/fa";
-import useAuthStore from "../../zustand/authStore";
+import useBoundStore from "../../zustand/store";
 import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "../../axios/axiosInstance";
 import { queryClient } from "../../main";
 
 const CommentForm = ({ postId }: { postId: string }) => {
-  const userId = useAuthStore((state) => state.auth.id);
-  const user = useAuthStore((state) => state.auth);
+  const userId = useBoundStore((state) => state.auth.id);
+  const user = useBoundStore((state) => state.auth);
   const [content, setContent] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 

@@ -15,6 +15,8 @@ const CommunityCard = ({
     createdAt: string;
   };
 }) => {
+
+  console.log("comm card: ", community)
   return (
     <motion.div initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }}>
       
@@ -27,18 +29,18 @@ const CommunityCard = ({
           <img src={community.image} alt={community.name} />
         ) : (
           <span className="text-center w-full text-3xl">
-            {community.name[0]}
+            {community?.name?.slice(0, 1)}
           </span>
         )}
       </div>
       <div className="info flex-grow">
         <h2 className="font-bold text-2xl">{community.name}</h2>
         <div className="flex justify-between gap-2 font-extralight">
-          <div className=" text-sm">Members: {community.members.length}</div>
-          <div className=" text-sm">Posts: {community.posts.length}</div>
+          <div className=" text-sm">Members: {community?.members?.length}</div>
+          <div className=" text-sm">Posts: {community?.posts?.length}</div>
         </div>
         <div className="text-right">
-          Created: {blogPostedTime(community.createdAt)}
+          Created: {blogPostedTime(community?.createdAt)}
         </div>
       </div>
     </Link>

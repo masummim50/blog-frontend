@@ -26,7 +26,7 @@ const BlogPostsContainer = ({
   }
 
   return (
-    <div>
+    <div className="px-2">
       {isLoading && (
         <div className="flex justify-center items-center min-h-[200px]">
           Loading...{" "}

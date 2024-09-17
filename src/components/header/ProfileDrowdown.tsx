@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useAuthStore from "../../zustand/authStore";
+import useBoundStore from "../../zustand/store";
 
 const ProfileDrowdown = ({
   showProfileDropdown,
@@ -9,8 +9,8 @@ const ProfileDrowdown = ({
   showProfileDropdown: boolean;
   setShowProfileDropdown: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const removeUser = useAuthStore((state) => state.removeUser);
-  const avatarIamge = useAuthStore((state) => state.auth.image);
+  const removeUser = useBoundStore((state) => state.removeUser);
+  const avatarIamge = useBoundStore((state) => state.auth.image);
   const handleClickOutside = (e: MouseEvent) => {
     const container = document.getElementById(
       "profile-dropdown"
@@ -27,7 +27,7 @@ const ProfileDrowdown = ({
 
   document.addEventListener("click", handleClickOutside);
 
-  const userName = useAuthStore((state) => state.auth.userName);
+  const userName = useBoundStore((state) => state.auth.userName);
 
   const links = [
     {
@@ -76,7 +76,7 @@ const ProfileDrowdown = ({
             </Link>
           </div>
         ))}
-        <button onClick={handleLogout}>Logout</button>
+        <button className="w-full text-center mt-5 hover:bg-gray-500  font-thin rounded-md py-5" onClick={handleLogout}>Logout</button>
       </div>
     </div>
   );

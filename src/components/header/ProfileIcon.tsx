@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ProfileDrowdown from "./ProfileDrowdown";
-import useAuthStore from "../../zustand/authStore";
+import useBoundStore from "../../zustand/store";
 import { IoPersonCircle } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaPenFancy } from "react-icons/fa";
@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 
 const ProfileIcon = () => {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const userName = useAuthStore((state) => state.auth.userName);
-  const avatarImage = useAuthStore((state) => state.auth.image);
+  const userName = useBoundStore((state) => state.auth.userName);
+  const avatarImage = useBoundStore((state) => state.auth.image);
   return (
     <div className="flex items-center cursor-pointer">
       <Link to={`/me/write`} className="p-4">

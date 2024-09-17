@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { Link } from "react-router-dom";
 import CommunitiesDropdown from "./CommunitiesDropdown";
-import useAuthStore from "../../zustand/authStore";
+import useBoundStore from "../../zustand/store";
 
 const feedLinks = [
   {
@@ -20,7 +20,7 @@ const feedLinks = [
 ];
 
 const HeaderLinks = () => {
-  const userId = useAuthStore((state) => state.auth.id);
+  const userId = useBoundStore((state) => state.auth.id);
   const [showCommunity, setShowCommunity] = useState(false);
 
   const handleClickOutside = (e: MouseEvent) => {

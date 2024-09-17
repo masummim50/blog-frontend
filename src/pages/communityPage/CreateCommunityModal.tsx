@@ -7,7 +7,7 @@ import CommunityImage from "./CommunityImage";
 import CommunityCoverImage from "./CommunityCoverImage";
 import { toast } from "react-toastify";
 import { queryClient } from "../../main";
-import useAuthStore from "../../zustand/authStore";
+import useBoundStore from "../../zustand/store";
 
 const CreateCommunityModal = ({
   showModal,
@@ -16,7 +16,7 @@ const CreateCommunityModal = ({
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const userId = useAuthStore((state) => state.auth.id);
+  const userId = useBoundStore((state) => state.auth.id);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");

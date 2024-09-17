@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import AppRouter from "./AppRouter";
 import { themeContext } from "./context/themeContext";
-import useAuthStore from "./zustand/authStore";
+// import useBoundStore from "./zustand/authStore";
 import { jwtDecode } from "jwt-decode";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { axiosInstance } from "./axios/axiosInstance";
-import ScrollResetWrapper from "./ScrollResetWrapper";
+import useBoundStore from "./zustand/store";
 function App() {
-  const setUser = useAuthStore((state) => state.setUser);
-  const  setUserImage = useAuthStore((state)=> state.setUserImage)
+  const setUser = useBoundStore((state) => state.setUser);
+
+  const setUserImage = useBoundStore((state) => state.setUserImage);
   const [darkTheme, setDarkTheme] = useState<boolean>(true);
   // as soon as it renders, get the token from local storage and set it in the header
   const token = localStorage.getItem("blog-token");
@@ -26,14 +27,20 @@ function App() {
       id: decoded._id,
       userName: decoded.name,
       email: decoded.email,
-      image:null
+      image: null,
     };
+
     setUser(payload);
+    
     axiosInstance.get("/users/avatar").then((data) => {
       const image = data.data.data.avatarImage;
+      console.log("retrieved image link: ", image);
       setUserImage(image);
+      console.log("set image link")
     });
   }
+
+
 
   return (
     <themeContext.Provider value={{ darkTheme, setDarkTheme }}>
@@ -52,8 +59,6 @@ function App() {
           transition={Bounce}
         />
         <div className="dark:bg-orange-950 bg-white">
-          
-
           <AppRouter />
         </div>
       </div>

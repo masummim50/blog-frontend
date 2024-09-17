@@ -24,7 +24,7 @@ type payloadType = {
   image: string | null;
 };
 
-const useAuthStore = create<authStore>()(
+const useBoundStore = create<authStore>()(
   devtools((set) => ({
     auth: {
       token: null,
@@ -52,4 +52,4 @@ const useAuthStore = create<authStore>()(
   }))
 );
 
-export default useAuthStore;
+export default useBoundStore;

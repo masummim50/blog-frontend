@@ -1,9 +1,9 @@
 // import React, { useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
-// import useAuthStore from "../../zustand/authStore";
+// import useBoundStore from "../../zustand/store";
 
 // const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
-//   const userId = useAuthStore((state) => state.auth.id);
+//   const userId = useBoundStore((state) => state.auth.id);
 //   const navigate = useNavigate();
 
 //   const [authenticated, setAuthenticated] = React.useState(false);
@@ -23,10 +23,10 @@
 
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuthStore from "../../zustand/authStore";
+import useBoundStore from "../../zustand/store";
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
-  const userId = useAuthStore((state) => state.auth.id);
+  const userId = useBoundStore((state) => state.auth.id);
   const [authenticating, setAuthenticating] = React.useState(true);
   const navigate = useNavigate();
 

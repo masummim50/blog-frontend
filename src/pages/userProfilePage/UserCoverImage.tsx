@@ -44,7 +44,7 @@ const UserCoverImage = ({
     <div>
       <div className="flex items-center justify-center">
         <label
-          className={`transition-all border border-gray-500  h-[100px] w-full rounded-md  cursor-pointer mb-2 text-center flex items-center justify-center relative ${
+          className={`transition-all border border-gray-500 bg-gray-400 dark:bg-gray-900  h-[100px] w-full rounded-md  cursor-pointer mb-2 text-center flex items-center justify-center relative ${
             coverImage ? `  bg-cover w-[100px] bg-center ` : ""
           }`}
           style={{
@@ -57,7 +57,7 @@ const UserCoverImage = ({
             className="hidden"
             type="file"
           />
-          <span className="absolute z-10 text-white">
+          <span className="absolute z-10  text-white">
             {uploadingImage ? "Uploading..." : "Upload Cover"}
           </span>
         </label>

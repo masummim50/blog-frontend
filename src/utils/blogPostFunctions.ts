@@ -30,3 +30,27 @@ export function calculateReadingTime(text: string): string {
 
   return `${readingTime} min read`;
 }
+
+export function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+
+  // Options for formatting the date
+  const options: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  };
+
+  // Get the formatted parts of the date
+  const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(date);
+
+  // Extract day, month, and year from the formatted parts
+  const day = parts.find((part) => part.type === "day")?.value;
+  const month = parts
+    .find((part) => part.type === "month")
+    ?.value?.toLowerCase();
+  const year = parts.find((part) => part.type === "year")?.value;
+
+  // Return the custom formatted date
+  return `${day}${month} ${year}`;
+}

@@ -1,14 +1,14 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { ChangeEvent, useEffect } from "react";
 import { axiosInstance } from "../../axios/axiosInstance";
-import useAuthStore from "../../zustand/authStore";
+import useBoundStore from "../../zustand/store";
 import UserAvatarImage from "./UserAvatarImage";
 import UserCoverImage from "./UserCoverImage";
 import { toast } from "react-toastify";
 
 const UserProfilePage = () => {
-  const userId = useAuthStore((state) => state.auth.id);
-  const setUserImage = useAuthStore((state)=> state.setUserImage)
+  const userId = useBoundStore((state) => state.auth.id);
+  const setUserImage = useBoundStore((state)=> state.setUserImage)
   const { data, isSuccess, isPending } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {

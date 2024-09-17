@@ -19,7 +19,7 @@ const UserBanner = ({ user }: { user: any }) => {
         <div className="absolute inset-0 bg-black/40 "></div>
 
         {/* Avatar & Information */}
-        <div className="relative z-10 flex flex-col text-white items-center justify-center h-full  px-4">
+        <div className="relative -z-0 flex flex-col text-white items-center justify-center h-full  px-4">
           {/* Avatar */}
           <div className="relative">
             {user?.avatarImage ? (

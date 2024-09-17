@@ -1,4 +1,3 @@
-
 import CreateCommunitySection from "./CreateCommunitySection";
 import UsersCommunity from "./UsersCommunity";
 

@@ -1,7 +1,7 @@
 
 
 const UserHomePage = () => {
-  // const userid = useAuthStore((state) => state.auth.id);
+  // const userid = useBoundStore((state) => state.auth.id);
   // const { username } = useParams();
   // console.log(username);
 

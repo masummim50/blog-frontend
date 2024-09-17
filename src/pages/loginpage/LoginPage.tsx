@@ -6,10 +6,10 @@ import { authQuery } from "../../axios/auth/authQuery";
 import { isAxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import useAuthStore from "../../zustand/authStore";
+import useBoundStore from "../../zustand/store";
 
 const LoginPage = () => {
-  const userId = useAuthStore((state)=> state.auth.id);
+  const userId = useBoundStore((state)=> state.auth.id);
   const navigate = useNavigate();
   
   useEffect(()=> {
@@ -17,7 +17,7 @@ const LoginPage = () => {
       navigate("/")
     }
   },[userId])
-  const setUser = useAuthStore((state) => state.setUser);
+  const setUser = useBoundStore((state) => state.setUser);
   // const navigate = useNavigate();
   // on successfull login=> get the token, set it to localstorage, decode the token, set the decoded value to zustand store
 
@@ -57,6 +57,7 @@ const LoginPage = () => {
         id: data.data.id,
         userName: data.data.name,
         email: data.data.email,
+        image:data.data.image
       };
       setUser(payloadForStore);
       localStorage.setItem("blog-token", data.token);

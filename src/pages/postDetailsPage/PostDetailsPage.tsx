@@ -130,10 +130,10 @@ const PostDetailsPage = () => {
               </div>
 
               <div className="flex justify-end gap-1 h-auto">
-                <div className="bg-gray-800 border-r-2 border-r-sky-500 text-white text-xs px-3 py-1">
+                <div className="bg-gray-500 dark:bg-gray-800 border-r-4 border-r-sky-500 text-white text-xs px-3 py-1">
                   {calculateReadingTime(post?.content.toString())}
                 </div>
-                <div className="bg-gray-800 border-r-2 border-r-sky-500 text-white text-xs px-3 py-1">
+                <div className="bg-gray-500 dark:bg-gray-800 border-r-4 border-r-sky-500 text-white text-xs px-3 py-1">
                   {post?.content.toString().split(" ").length} Words
                 </div>
               </div>

@@ -9,8 +9,9 @@ import { posts } from "./PostData";
 import { axiosInstance } from "../../axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { Bounce, toast } from "react-toastify";
-import useAuthStore from "../../zustand/authStore";
+import useBoundStore from "../../zustand/store";
 import { useNavigate } from "react-router-dom";
+import SelectCommunity from "./SelectCommunity";
 
 interface PostDataType {
   title: string;
@@ -20,12 +21,14 @@ interface PostDataType {
 }
 
 const MyEditor = () => {
-  const userName = useAuthStore((state) => state.auth.userName);
+  const community = useBoundStore((state) => state.community);
+  const userName = useBoundStore((state) => state.auth.userName);
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [value, setValue] = useState("");
   const [tags, setTags] = useState<string[]>([]);
+  
 
   const [formFilled, setFormFilled] = useState(false);
 
@@ -82,6 +85,7 @@ const MyEditor = () => {
       content: value,
       tags: tags,
       image: image,
+      community: community.id
     };
 
     console.log(postData);
@@ -91,13 +95,16 @@ const MyEditor = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
       <div className="col-span-1 mb-7 h-[100vh] overflow-y-scroll no-scrollbar flex flex-col">
-        <div className="text-right">
+        <div className="flex justify-between items-center py-3">
           <button
             onClick={generateRandomPost}
-            className="rounded-md px-3 py-[2px] border border-gray-600"
+            className="rounded-md px-3 py-[2px] border border-gray-600 hover:border-gray-400"
           >
             Generate Random
           </button>
+
+          <SelectCommunity community={community}/>
+
         </div>
         <input
           ref={titleRef}

@@ -1,7 +1,7 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {  useLayoutEffect, useRef, useState } from "react";
 
 import { Post } from "./PostDetailsPage";
-import useAuthStore from "../../zustand/authStore";
+import useBoundStore from "../../zustand/store";
 import { MdModeComment } from "react-icons/md";
 import { AiFillLike } from "react-icons/ai";
 import { useMutation } from "@tanstack/react-query";
@@ -10,7 +10,7 @@ import { queryClient } from "../../main";
 import { Link } from "react-router-dom";
 
 const PostDetails = ({ post }: { post: Post }) => {
-  const user = useAuthStore((state) => state.auth);
+  const user = useBoundStore((state) => state.auth);
 
   const smallContainerRef = useRef<HTMLDivElement>(null);
   const [isSticky, setIsSticky] = useState(false);
@@ -49,7 +49,7 @@ const PostDetails = ({ post }: { post: Post }) => {
       return response.data;
     },
     onSuccess: (data, param) => {
-      queryClient.setQueryData([`post${post._id}`], (oldData) => {
+      queryClient.setQueryData([`post${post._id}`], (oldData:any) => {
         console.log("param: ", param);
         if (param === "like") {
           const newLikeObject = {
