@@ -74,9 +74,10 @@ const RegisterPage = () => {
   const [parent] = useAutoAnimate()
   return (
     <div
-      className={`min-h-screen bg-[url('../../../public/bg.jpg')] w-full bg-no-repeat bg-cover flex justify-center items-start pt-5`}
+      className={`min-h-screen bg-gray-200 w-full bg-no-repeat bg-cover flex justify-center items-start pt-5`}
     >
-      <div className="backdrop-blur-md rounded-md border-[1px] border-white  py-7 px-3 flex flex-col items-center w-full max-w-[400px]">
+      <div style={{backgroundImage: "url(/quill.jpg)", backgroundSize:'cover', backgroundPosition:'center'}}>
+      <div className="backdrop-blur-sm bg-black/40 rounded-md border-[1px]   py-28 px-3 flex flex-col items-center w-full max-w-[400px]">
         <h2 className="text-3xl mb-8 text-white font-semibold">Register</h2>
         <form ref={parent} className="w-full">
           <NameInput
@@ -136,12 +137,13 @@ const RegisterPage = () => {
             )}
           </button>
         </form>
-        <p className="text-white">
+        <p className="text-white mt-3">
           Already have an account?
-          <Link className="font-bold underline" to={"/login"}>
+          <Link className="font-bold underline text-green-400" to={"/login"}>
             Login
           </Link>
         </p>
+      </div>
       </div>
     </div>
   );

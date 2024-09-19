@@ -88,13 +88,17 @@ const LoginPage = () => {
 
   return (
     <div
-      className={`min-h-screen bg-[url('../../../public/bg.jpg')] w-full bg-no-repeat bg-cover flex justify-center items-start pt-5`}
+    
+      className={`min-h-screen bg-gray-200 w-full bg-no-repeat bg-cover flex justify-center items-start pt-5`}
     >
+      <div style={{backgroundImage: "url(/quill.jpg)", backgroundSize:'cover', backgroundPosition:'center'}}>
+
       <div
+      
         ref={parent}
-        className="backdrop-blur-md rounded-md border-[1px] border-white  py-7 px-3 flex flex-col items-center min-w-[400px]"
+        className="backdrop-blur-sm bg-black/30  rounded-md border-[1px]   py-28 px-3 flex flex-col items-center min-w-[400px]"
       >
-        <h2 className="text-2xl mb-8">Login</h2>
+        <h2 className="text-2xl mb-8 text-white font-bold">Login</h2>
         <div className="text-right w-full">
           <button
             className="bg-white text-black rounded-md px-3 py-1"
@@ -140,13 +144,15 @@ const LoginPage = () => {
           )}
         </button>
 
-        <p className="text-white">
+        <p className="text-white mt-3">
           {" "}
           Don't have an account?{" "}
-          <Link className="font-bold underline" to={"/register"}>
+          <Link className="font-bold underline text-green-400" to={"/register"}>
             Register
           </Link>
         </p>
+      </div>
+      
       </div>
     </div>
   );
