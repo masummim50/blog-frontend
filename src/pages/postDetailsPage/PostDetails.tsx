@@ -48,7 +48,7 @@ const PostDetails = ({ post }: { post: Post }) => {
       const response = await axiosInstance.patch(`/post/${param}/${post._id}`);
       return response.data;
     },
-    onSuccess: (data, param) => {
+    onSuccess: (_, param) => {
       queryClient.setQueryData([`post${post._id}`], (oldData:any) => {
         console.log("param: ", param);
         if (param === "like") {
@@ -80,7 +80,7 @@ const PostDetails = ({ post }: { post: Post }) => {
     },
   });
 
-  const handleLike = (e, param) => {
+  const handleLike = ( param) => {
     likeMutation.mutate(param);
   };
 
@@ -97,9 +97,9 @@ const PostDetails = ({ post }: { post: Post }) => {
               <div className="flex items-center">
                 <span className="ml-2">{post.likes.length}</span>
                 <div
-                  onClick={(e) =>
+                  onClick={() =>
                     handleLike(
-                      e,
+                      
                       post.likes.map((l) => l._id).includes(user.id || "")
                         ? "unlike"
                         : "like"

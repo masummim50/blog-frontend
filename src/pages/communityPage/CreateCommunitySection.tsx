@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useBoundStore from "../../zustand/store";
 import CreateCommunityModal from "./CreateCommunityModal";
 

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import ReactQuill from 'react-quill';
 
 const Quill = ({value, setValue}:{value:string, setValue:(value:string)=>void}) => {

@@ -32,6 +32,7 @@ const useInfiniteFetchPosts = (endpoint: string, params: FetchPostsParams, query
   } = useInfiniteQuery({
     queryKey: [queryKey],
     queryFn: fetchPosts,
+    retry:false,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       return lastPage.meta.page < lastPage.meta.totalPage

@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:5000/api/v1";
+// const baseUrl = "http://localhost:5000/api/v1";
+const baseUrl =
+  "https://blog-backend-livid-nine.vercel.app/api/v1";
 
 const token = localStorage.getItem("blog-token");
 

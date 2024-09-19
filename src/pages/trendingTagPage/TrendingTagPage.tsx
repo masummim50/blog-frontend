@@ -1,4 +1,4 @@
-import React from 'react';
+
 import BlogPostsContainer from '../../components/BlogPostsContainer/BlogPostsContainer';
 import { useParams } from 'react-router-dom';
 

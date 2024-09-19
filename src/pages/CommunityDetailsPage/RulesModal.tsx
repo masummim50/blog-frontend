@@ -1,4 +1,4 @@
-import React from "react";
+
 import { AnimatePresence, motion } from "framer-motion";
 
 const RulesModal = ({ showModal, setShowModal, rules }: { showModal: boolean, setShowModal: any, rules: string[] }) => {

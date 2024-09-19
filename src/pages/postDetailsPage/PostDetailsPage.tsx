@@ -1,5 +1,5 @@
 import parse from "html-react-parser";
-import React from "react";
+
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -8,8 +8,6 @@ import { blogPostedTime, calculateReadingTime } from "../../utils/blogPostFuncti
 import CommentForm from "./CommentForm";
 import Comments from "./Comments";
 import PostDetails from "./PostDetails";
-import StickyFooter from "./PostDetails";
-import VisibilityComponent from "./PostDetails";
 
 interface Author {
   _id: string;

@@ -53,7 +53,7 @@ const HomePage = () => {
   //   }
   // }, [inView, fetchNextPage, data]);
 
-  useEffect(() => { 
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
@@ -61,30 +61,6 @@ const HomePage = () => {
     <div className="min-h-[100vh] mw pt-7 px-2">
       <BlogPostsContainer apiEndPoint="/post" queryKey="posts" />
     </div>
-
-    // <div>
-    //   {/* {JSON.stringify(data?.data)} */}
-
-    //   {isLoading && <div>Loading...</div>}
-
-    //   <div className="">
-    //     <Masonry
-    //       breakpointCols={breakpointColumnsObj}
-    //       className="my-masonry-grid"
-    //       columnClassName="my-masonry-grid_column"
-    //     >
-    //       {data?.pages.map((page) =>
-    //         page.data.map((d: BlogCardPropsType) => (
-    //           <BlogCard key={d._id} post={d} />
-    //         ))
-    //       )}
-    //     </Masonry>
-    //   </div>
-    //   <div className="w-full h-[1px]" ref={ref}></div>
-    //   {isFetchingNextPage && <div>Loading...</div>}
-    //   {data?.pages.at(-1).meta.page === data?.pages.at(-1).meta.totalPage &&
-    //     !isLoading && <div>No more data</div>}
-    // </div>
   );
 };
 

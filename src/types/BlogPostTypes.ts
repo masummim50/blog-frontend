@@ -2,7 +2,10 @@ export interface BlogCardPropsType {
   title: string;
   content: string;
   image: string;
-  community: string | null;
+  community: {
+    _id: string;
+    name: string;
+  };
   tags: string[];
   _id: string;
   likes: [string];

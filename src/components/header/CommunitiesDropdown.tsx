@@ -2,6 +2,7 @@ import useBoundStore from "../../zustand/store";
 import { useQuery } from "@tanstack/react-query";
 import { CommunityQuery } from "../../axios/community/communityQuery";
 
+
 const CommunitiesDropdown = ({ showCommunity }: { showCommunity: boolean }) => {
   const userId = useBoundStore((state) => state.auth.id);
 

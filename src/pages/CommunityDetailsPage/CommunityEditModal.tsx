@@ -14,16 +14,16 @@ const CommunityEditModal = ({ community }: { community: any }) => {
   const userId = useBoundStore((state) => state.auth.id);
   const [showModal, setShowModal] = React.useState(false);
 
-  const [existingRules, setExistingRules] = useState<
-    { id: string; value: string }[]
-  >(
-    community?.rules?.map((rule) => {
-      return {
-        id: uuidv4(),
-        value: rule,
-      };
-    })
-  );
+  // const [existingRules, setExistingRules] = useState<
+  //   { id: string; value: string }[]
+  // >(
+  //   community?.rules?.map((rule) => {
+  //     return {
+  //       id: uuidv4(),
+  //       value: rule,
+  //     };
+  //   })
+  // );
 
   const [name, setName] = useState(community?.name);
   const [description, setDescription] = useState(community?.description);
@@ -53,7 +53,7 @@ const CommunityEditModal = ({ community }: { community: any }) => {
     onSuccess: (data) => {
       toast.success("Community updated successfully");
       setShowModal(false);
-      queryClient.setQueryData([`community-${community._id}`], (oldData)=> {
+      queryClient.setQueryData([`community-${community._id}`], (oldData:any)=> {
         return {
             ...oldData, data: data.data
         }

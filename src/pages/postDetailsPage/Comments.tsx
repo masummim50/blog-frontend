@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Comment } from './PostDetailsPage';
 import CommentCard from './CommentCard';
 

@@ -1,4 +1,4 @@
-import React from "react";
+
 
 const UserBanner = ({ user }: { user: any }) => {
   console.log("user: ", user);

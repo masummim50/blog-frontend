@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import ProfileDrowdown from "./ProfileDrowdown";
 import useBoundStore from "../../zustand/store";
-import { IoPersonCircle } from "react-icons/io5";
-import { IoIosArrowDown } from "react-icons/io";
 import { FaPenFancy } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -36,7 +34,7 @@ const ProfileIcon = () => {
                 className="w-full h-full object-cover rounded-full"
               />
             ) : (
-              userName?.slice(0, 1)
+              (userName as unknown as string).slice(0, 1)
             ) 
           }
         </div>

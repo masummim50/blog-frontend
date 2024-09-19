@@ -46,7 +46,7 @@ const CommentForm = ({ postId }: { postId: string }) => {
         replies: data.data.replies,
         createdAt: data.data.createdAt,
       };
-      queryClient.setQueryData([`post${postId}`], (oldData) => {
+      queryClient.setQueryData([`post${postId}`], (oldData:any) => {
         return {
           ...oldData, data: { ...oldData.data, comments: [...oldData.data.comments, newComment]},}
       })
@@ -56,7 +56,7 @@ const CommentForm = ({ postId }: { postId: string }) => {
   // Handle submit
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const commentData = { content, author: userId as string, post: postId };
+    const commentData = { content, author: userId as unknown as string, post: postId };
     commentMutation.mutate(commentData);
     // Logic for submitting the content
     console.log("Submitted:", content);

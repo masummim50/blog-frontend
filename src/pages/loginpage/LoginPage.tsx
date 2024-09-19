@@ -9,14 +9,14 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import useBoundStore from "../../zustand/store";
 
 const LoginPage = () => {
-  const userId = useBoundStore((state)=> state.auth.id);
+  const userId = useBoundStore((state) => state.auth.id);
   const navigate = useNavigate();
-  
-  useEffect(()=> {
-    if(userId){
-      navigate("/")
+
+  useEffect(() => {
+    if (userId) {
+      navigate("/");
     }
-  },[userId])
+  }, [userId]);
   const setUser = useBoundStore((state) => state.setUser);
   // const navigate = useNavigate();
   // on successfull login=> get the token, set it to localstorage, decode the token, set the decoded value to zustand store
@@ -57,7 +57,7 @@ const LoginPage = () => {
         id: data.data.id,
         userName: data.data.name,
         email: data.data.email,
-        image:data.data.image
+        image: data.data.image,
       };
       setUser(payloadForStore);
       localStorage.setItem("blog-token", data.token);
@@ -66,14 +66,26 @@ const LoginPage = () => {
   });
 
   const [parent] = useAutoAnimate();
+  const [testingAccount, setTestingAccount] = useState(1);
+
   const handleTestingAccountClick = () => {
-    setEmail("user1@gmail.com")
-    setIsEmailValid(true);
-    setPassword('1234')
-  }
+    if (testingAccount === 1) {
+      setEmail("johndoe@gmail.com");
+      setIsEmailValid(true);
+      setPassword("1234");
+    } else if (testingAccount === 2) {
+      setEmail("janedoe@gmail.com");
+      setIsEmailValid(true);
+      setPassword("1234");
+    } else {
+      setEmail("adam@gmail.com");
+      setIsEmailValid(true);
+      setPassword("1234");
+    }
 
+    setTestingAccount(testingAccount === 1 ? 2 : testingAccount === 2 ? 3 : 1);
+  };
 
-  
   return (
     <div
       className={`min-h-screen bg-[url('../../../public/bg.jpg')] w-full bg-no-repeat bg-cover flex justify-center items-start pt-5`}
@@ -84,7 +96,12 @@ const LoginPage = () => {
       >
         <h2 className="text-2xl mb-8">Login</h2>
         <div className="text-right w-full">
-          <button className="bg-white text-black rounded-md px-3 py-1" onClick={handleTestingAccountClick}>Use Testing Account</button>
+          <button
+            className="bg-white text-black rounded-md px-3 py-1"
+            onClick={handleTestingAccountClick}
+          >
+            Use Testing Account {testingAccount === 1 ? "" : testingAccount}
+          </button>
         </div>
         <EmailInput
           email={email}
