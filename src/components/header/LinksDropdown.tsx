@@ -24,12 +24,11 @@ const LinksDropwdown = ({
   return (
     <div
       id="links-dropdown"
-      className={`absolute top-[100%] h-[90vh] bg-blue-300 transition-all duration-300 overflow-hidden ${
+      className={`absolute top-[100%] h-[90vh] bg-gray-200 dark:bg-gray-800 flex flex-col transition-all duration-300 overflow-hidden ${
         showLinksDropdown ? 'left-0' : 'left-[-300px]'
       }`}
     >
-      this is links dropdown
-      <button>button</button>
+      <button className="px-5">Not Useful</button>
     </div>
   );
 };

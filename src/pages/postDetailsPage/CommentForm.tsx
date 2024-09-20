@@ -139,7 +139,7 @@ const CommentForm = ({ postId }: { postId: string }) => {
               <div className="slider-container">
                 <Slider {...settings}>
                   {
-                    comments.map((comment)=> <span onClick={()=> setContent(comment)}  className="border rounded-md px-2 py-[1px] mr-1 block cursor-pointer">{comment}</span>)
+                    comments.map((comment)=> <span onClick={()=> setContent(comment)}  className="border border-black dark:border-white rounded-md px-2 py-[1px] mr-1 block cursor-pointer">{comment}</span>)
                   }
                 </Slider>
               </div>

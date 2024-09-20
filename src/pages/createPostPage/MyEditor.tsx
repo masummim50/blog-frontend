@@ -28,7 +28,6 @@ const MyEditor = () => {
   const [image, setImage] = useState("");
   const [value, setValue] = useState("");
   const [tags, setTags] = useState<string[]>([]);
-  
 
   const [formFilled, setFormFilled] = useState(false);
 
@@ -85,7 +84,7 @@ const MyEditor = () => {
       content: value,
       tags: tags,
       image: image,
-      community: community.id
+      community: community.id,
     };
 
     console.log(postData);
@@ -103,8 +102,7 @@ const MyEditor = () => {
             Generate Random
           </button>
 
-          <SelectCommunity community={community}/>
-
+          <SelectCommunity community={community} />
         </div>
         <input
           ref={titleRef}
@@ -122,7 +120,7 @@ const MyEditor = () => {
 
         <Tags tags={tags} setTags={setTags} />
 
-        <div className="flex justify-end ">
+        <div className="flex justify-end fixed bottom-0 left-0 w-full bg-gray-200 dark:bg-gray-800 p-3">
           <button
             disabled={!formFilled || mutation.isPending}
             onClick={handleCreatePost}
@@ -130,7 +128,7 @@ const MyEditor = () => {
               !formFilled ? "cursor-not-allowed opacity-70" : "cursor-pointer"
             } `}
           >
-            {mutation.isPending ? "Publishing..." : "Publish"}
+            {mutation.isPending ? <span className="flex items-center">Publishing... <span className="inline-block size-5 border-[3px] border-white dark:border-white border-t-transparent dark:border-t-transparent rounded-full animate-spin"></span></span> : "Publish"}
           </button>
         </div>
       </div>
