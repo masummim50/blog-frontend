@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import AppRouter from "./AppRouter";
 import { themeContext } from "./context/themeContext";
@@ -8,6 +8,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { axiosInstance } from "./axios/axiosInstance";
 import useBoundStore from "./zustand/store";
+import Lenis from "lenis";
 function App() {
   const setUser = useBoundStore((state) => state.setUser);
 
@@ -31,15 +32,23 @@ function App() {
     };
 
     setUser(payload);
-    
+
     axiosInstance.get("/users/avatar").then((data) => {
       const image = data.data.data.avatarImage;
       console.log("retrieved image link: ", image);
       setUserImage(image);
-      console.log("set image link")
+      console.log("set image link");
     });
   }
 
+    const lenis = new Lenis();
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
 
 
   return (

@@ -61,24 +61,10 @@ const HeaderLinks = () => {
       </div>
 
       <div className="relative group py-3 pr-6 px-3 l d hover:cursor-pointer">
-        <div className="flex items-end">
-          Feeds{" "}
-          <span>
-            <MdOutlineKeyboardArrowDown />
-          </span>
-        </div>
-        <div className="absolute left-0 top-100 mt-3 hidden group-hover:block">
-          {feedLinks.map((link, index) => {
-            return (
-              <Link
-                key={index}
-                className="block p-2 l d w-[200px]  cursor-pointer "
-                to={link.src}
-              >
-                {link.title}
-              </Link>
-            );
-          })}
+        <div className="flex items-end text-yellow-500 dark:text-yellow-400">
+          <Link to="/explore">
+          Explore
+          </Link>
         </div>
       </div>
 

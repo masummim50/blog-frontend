@@ -14,6 +14,7 @@ import TrendingPage from "./pages/trendingPage/TrendingPage";
 import TrendingTagPage from "./pages/trendingTagPage/TrendingTagPage";
 import CommunityPage from "./pages/communityPage/CommunityPage";
 import CommunityDetailsPage from "./pages/CommunityDetailsPage/CommunityDetailsPage";
+import ExplorePage from "./pages/explorePage/ExplorePage";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/explore",
+        element: <ExplorePage />,
       },
       {
         path: "/trending",

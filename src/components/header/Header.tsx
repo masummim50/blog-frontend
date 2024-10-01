@@ -12,7 +12,7 @@ const Header = () => {
   const id = useBoundStore((state) => state.auth.id);
   const { darkTheme, setDarkTheme } = useContext(themeContext);
   return (
-    <div className="l d  w-full fixed top-0 z-10 border-b dark:border-b-black border-b-gray-500">
+    <div className="l d  w-full fixed top-0 z-50 border-b dark:border-b-black border-b-gray-500">
       <div className="m-auto max-w-[95vw] flex justify-between items-center">
         <div className="flex items-center">
           <Link to={"/"} preventScrollReset={true} className="hidden md:block">

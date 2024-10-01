@@ -1,65 +1,34 @@
-import { useEffect } from "react";
-import BlogPostsContainer from "../../components/BlogPostsContainer/BlogPostsContainer";
+import { useScroll } from "framer-motion";
+import { useEffect, useRef } from "react";
+import FirstSection from "./FirstSection";
+import SecondSection from "./SecondSection";
+import ThirdSection from "./ThirdSection";
+import FourthSection from "./FourthSection";
 
-// interface Post {
-//   id: string;
-//   title: string;
-//   content: string;
-//   tags: string[];
-//   image: string;
-// }
-// const breakpointColumnsObj = {
-//   default: 4,
-//   1100: 3,
-//   700: 2,
-//   500: 1,
-// };
-
-// const fetchPosts = async ({ pageParam }: { pageParam: number }) => {
-//   console.log("fetch post props: ", pageParam);
-//   const response = await axiosInstance.get(
-//     `/post?page=${pageParam ? pageParam : 1}`
-//   );
-//   console.log(response.data);
-//   return response.data;
-// };
 const HomePage = () => {
-  // const {
-  //   data,
-  //   isLoading,
-  //   isSuccess,
-  //   isError,
-  //   error,
-  //   fetchNextPage,
-  //   isFetchingNextPage,
-  // } = useInfiniteQuery({
-  //   queryKey: ["posts"],
-  //   queryFn: fetchPosts,
-  //   initialPageParam: 1,
-  //   getNextPageParam: (data) => {
-  //     return data.meta.page + 1;
-  //   },
-  // });
-
-  // const { ref, inView } = useInView();
-
-  // useEffect(() => {
-  //   // console.log("data: ", data?.pages.at(-1))
-  //   if (
-  //     inView &&
-  //     data?.pages.at(-1).meta.page < data?.pages.at(-1).meta.totalPage
-  //   ) {
-  //     fetchNextPage();
-  //   }
-  // }, [inView, fetchNextPage, data]);
-
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  })
+  const container = useRef(null);
+
+  const {scrollYProgress} = useScroll({
+    target: container,
+    offset: ["start start", "end end"],
+  });
+
+  // const scalex = useTransform(scrollYProgress, [0,1], ['0%', '100%'])
+  
 
   return (
-    <div className="min-h-[100vh] mw pt-7 px-2">
-      <BlogPostsContainer apiEndPoint="/post" queryKey="posts" />
+    <div ref={container} className="pt-5 relative">
+      {/* <motion.div style={{width: scalex}} className={`bg-orange-400 h-1 w-5 sticky top-[65px] left-0 z-[100]`}></motion.div> */}
+      <FirstSection scrollYProgress={scrollYProgress}/>
+      <SecondSection />
+      {/* <div className="h-[100vh] bg-teal-300 relative z-10"></div> */}
+      <ThirdSection/>
+      {/* <div className="h-[100vh] bg-violet-300 relative z-10"></div> */}
+      <FourthSection/>
+      <div className="h-[50vh] bg-white dark:bg-gray-900 relative z-10"></div>
     </div>
   );
 };

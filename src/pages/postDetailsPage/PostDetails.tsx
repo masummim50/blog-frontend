@@ -1,4 +1,4 @@
-import {  useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import { Post } from "./PostDetailsPage";
 import useBoundStore from "../../zustand/store";
@@ -49,8 +49,7 @@ const PostDetails = ({ post }: { post: Post }) => {
       return response.data;
     },
     onSuccess: (_, param) => {
-      queryClient.setQueryData([`post${post._id}`], (oldData:any) => {
-        console.log("param: ", param);
+      queryClient.setQueryData([`post${post._id}`], (oldData: any) => {
         if (param === "like") {
           const newLikeObject = {
             _id: user.id,
@@ -80,10 +79,9 @@ const PostDetails = ({ post }: { post: Post }) => {
     },
   });
 
-  const handleLike = ( param) => {
+  const handleLike = (param) => {
     likeMutation.mutate(param);
   };
-
   return (
     <div>
       <div ref={smallContainerRef}>
@@ -99,7 +97,6 @@ const PostDetails = ({ post }: { post: Post }) => {
                 <div
                   onClick={() =>
                     handleLike(
-                      
                       post.likes.map((l) => l._id).includes(user.id || "")
                         ? "unlike"
                         : "like"
@@ -110,8 +107,8 @@ const PostDetails = ({ post }: { post: Post }) => {
                     <div className="size-5 border border-t-transparent border-sky-400  rounded-full animate-spin"></div>
                   ) : (
                     <AiFillLike
-                      className={`hover:cursor-pointer hover:fill-sky-400${
-                        post.likes.map((l) => l._id).includes(user.id || "")
+                      className={`hover:cursor-pointer hover:fill-sky-400 ${
+                        user?.id && post.likes.some((l) => l._id === user.id)
                           ? "fill-sky-500"
                           : "fill-gray-200"
                       }`}
@@ -129,7 +126,12 @@ const PostDetails = ({ post }: { post: Post }) => {
         <div className="h-[1px] bg-gray-400 w-full my-4"></div>
         <div className="flex flex-wrap gap-1">
           {post.tags.map((tag, i) => (
-            <Link preventScrollReset={true} className="bg-gray-300 dark:bg-gray-600 hover:bg-sky-400 text-black dark:text-white px-2 py-1 rounded-sm" to={`/trending/${tag}`} key={i}>
+            <Link
+              preventScrollReset={true}
+              className="bg-gray-300 dark:bg-gray-600 hover:bg-sky-400 text-black dark:text-white px-2 py-1 rounded-sm"
+              to={`/trending/${tag}`}
+              key={i}
+            >
               {tag}
             </Link>
           ))}
